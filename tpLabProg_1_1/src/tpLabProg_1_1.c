@@ -104,7 +104,7 @@ int main()
                 }
                 else
                 {
-                	//CAPAZ DOS FUNCIONES
+
                     if(banderaPrecioIngresado==0)
                     {
                          funcionMenuIngresoValores(&ingresoValorAerolineas,&ingresoValorLatam);
@@ -136,6 +136,7 @@ int main()
                             devolucionAeroInte = funcionAeroInteres(ingresoValorAerolineas);
                             devolucionAeroBtc = funcionAeroBitcoin(ingresoValorAerolineas);
                             devolucionAeroUnit = funcionAeroUnitario(ingresoValorAerolineas,kmIngresados);
+
                             devolucionDifValores = funcionDifPrecios(ingresoValorAerolineas,ingresoValorLatam);
 
                             ///LLAMADO A FUNCIONES DE LATAM:
