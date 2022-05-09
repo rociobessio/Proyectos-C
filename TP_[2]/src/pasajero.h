@@ -147,7 +147,7 @@ void printPassengers(ePassenger list[], int len,eStatusFlight status[],int tam_s
 /// @param typePassenger2 PUNTERO al array de tipos de pasajeros
 /// @param tamPassenger int array tamaño
 /// @return -1 si hay error (Invalid length o NULL pointer), 0 si todoOk
-int sortPassengersByPrice(ePassenger list[],int len,float* acumPrecio,int* cantPassengers, int* contPassengerSuperior,float* promedioPrecios);
+int informPrice(ePassenger list[],int len,float* acumPrecio,int* cantPassengers, int* contPassengerSuperior,float* promedioPrecios);
 
 //																			2.7
 /// @brief Ordena el array de pasajeros por codigo de vuelo y estado de vuelo
@@ -159,4 +159,4 @@ int sortPassengersByPrice(ePassenger list[],int len,float* acumPrecio,int* cantP
 /// @param typePassenger2 PUNTERO al array de tipos de pasajeros
 /// @param tamPassenger int array tamaño
 /// @return -1 si hay error (Invalid length o NULL pointer), 0 si todoOk
-int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam_status,eTypeFlight typePassenger[],int tamPassenger);
+int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam_status,eTypeFlight typePassenger[],int tamPassenger,int order);

@@ -403,37 +403,33 @@ int sortPassengers(ePassenger* list, int len, int order)
 		{
 			for(int j = i;j<len;j++)
 			{
-				if(order == 1)
+				if(!list[i].isEmpty && !list[j].isEmpty)
 				{
-					if(strcmp(list[i].lastName,list[j].lastName)>0)//ASC
+					if(order == 1)
 					{
-						auxiPasajero = list[i];
-						list[i] = list[j];
-						list[j] = auxiPasajero;
+						if(strcmp(list[i].lastName,list[j].lastName)>0)//ASC
+						{
+							auxiPasajero = list[i];
+							list[i] = list[j];
+							list[j] = auxiPasajero;
+						}
+						else if(strcmp(list[i].lastName,list[j].lastName)==0 && list[i].typePassenger>list[j].typePassenger)
+						{
+							auxiPasajero = list[i];
+							list[i] = list[j];
+							list[j] = auxiPasajero;
+						}
 					}
-					else if(strcmp(list[i].lastName,list[j].lastName)==0 && list[i].typePassenger>list[j].typePassenger)
+					else
 					{
-						auxiPasajero = list[i];
-						list[i] = list[j];
-						list[j] = auxiPasajero;
+						 if(strcmp(list[i].lastName,list[j].lastName)<0 && list[i].typePassenger<list[j].typePassenger)
+						{
+							auxiPasajero = list[i];
+							list[i] = list[j];
+							list[j] = auxiPasajero;
+						}
 					}
 				}
-				else
-				{
-					if(strcmp(list[i].lastName,list[j].lastName)==0)//DESC
-					{
-						auxiPasajero = list[i];
-						list[i] = list[j];
-						list[j] = auxiPasajero;
-					}
-					else if(strcmp(list[i].lastName,list[j].lastName) && list[i].typePassenger<list[j].typePassenger)
-					{
-						auxiPasajero = list[i];
-						list[i] = list[j];
-						list[j] = auxiPasajero;
-					}
-				}
-
 			}
 		}
 	}
@@ -442,7 +438,7 @@ int sortPassengers(ePassenger* list, int len, int order)
 
 
 
-int sortPassengersByPrice(ePassenger list[],int len,float* acumPrecio,int* cantPassengers, int* contPassengerSuperior,float* promedioPrecios)
+int informPrice(ePassenger list[],int len,float* acumPrecio,int* cantPassengers, int* contPassengerSuperior,float* promedioPrecios)
 {
 	int todoOk =-1;
 
@@ -485,7 +481,7 @@ int sortPassengersByPrice(ePassenger list[],int len,float* acumPrecio,int* cantP
 	return todoOk;
 }
 
-int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam_status,eTypeFlight typePassenger[],int tamPassenger)
+int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam_status,eTypeFlight typePassenger[],int tamPassenger,int order)
 {
 	int todoOk = -1;
 	ePassenger auxPassanger;
@@ -494,14 +490,31 @@ int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam
 	{
 		for(int i = 0;i<len;i++)
 		{
-			for(int j = i + 1;j<len;j++)
+			for(int j = i;j<len;j++)
 			{
-				if(strcmp(list[i].flycode,list[j].flycode)>0 && list[i].statusFlight == 1 && list[j].statusFlight == 1 && list[i].isEmpty==0 && list[j].isEmpty==0)
+				if(!list[i].isEmpty && !list[j].isEmpty)
 				{
-					auxPassanger = list[i];
-					list[i]= list[j];
-					list[j]= auxPassanger;
+					if(order==1)
+					{
+						if(strcmp(list[i].flycode,list[j].flycode)>0 && list[i].statusFlight == 1 && list[j].statusFlight == 1)
+						{
+							auxPassanger = list[i];
+							list[i]= list[j];
+							list[j]= auxPassanger;
+						}
+					}
+					else if(order==0)
+					{
+						if(strcmp(list[i].flycode,list[j].flycode)<0 && list[i].statusFlight == 1 && list[j].statusFlight == 1)
+						{
+							auxPassanger = list[i];
+							list[i]= list[j];
+							list[j]= auxPassanger;
+						}
+					}
+
 				}
+
 
 			}
 		}
@@ -512,7 +525,11 @@ int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam
 
 		for(int i =0; i<len;i++)
 		{
+			if(!list[i].isEmpty)
+			{
 				showOnePassenger(list[i],status,tam_status,typePassenger,tamPassenger);
+			}
+
 		}
 
 		todoOk=0;
@@ -541,25 +558,13 @@ int submenueInform(ePassenger list[],int len,eStatusFlight status[], int tam_sta
 
 	if(list!=NULL && len>0)
 	{
-		showMessage("\nINGRESE DE QUE FORMA DESEA VER LA LISTA: ");
+		showMessage("\nQUE DESEA VER: ");
 		showMessage("\n1)ORDEN ALFABETICO POR APELLIDO Y TIPO DE PASAJERO\n2)TOTAL Y PROMEDIO DE PRECIOS\n3)CODIGO DE VUELO Y ESTADO DE VUELO ACTIVO: ");
-		scanf("%d",&opcion);
-		while(opcion<1||opcion>3)
-		{
-			showMessage("\nERROR REINGRESE: ");
-			showMessage("\n1)ORDEN ALFABETICO POR APELLIDO Y TIPO DE PASAJERO\n2)TOTAL Y PROMEDIO DE PRECIOS\n3)CODIGO DE VUELO Y ESTADO DE VUELO ACTIVO: ");
-			scanf("%d",&opcion);
-		}
+		utn_getNumero(&opcion, "\nINGRESE: ", "\nERROR, REINTENTE: ", 1 , 3, 5000);
 		switch (opcion)
 		{
 			case 1:
-				showMessage("\nDESEA VER LA LISTA DE FORMA ASCENDENTE (1) O DESCENDENTE (0)");
-				scanf("%d",&order);
-				while(order<0 ||order>1)
-				{
-					showMessage("\nERROR REINGRESE FORMA ASCENDENTE (1) O DESCENDENTE (0)");
-					scanf("%d",&order);
-				}
+				utn_getNumero(&order, "\nINGRESE ASCENDENTE (1) o DESCENDENTE (0): ", "\nERROR, REINGRESE ASCENDENTE (1) o DESCENDENTE (0): ", 0, 1, 10000);
 				sortPassengers(list, len, order);
 				limpioPantalla();
 				showMessage("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
@@ -576,7 +581,7 @@ int submenueInform(ePassenger list[],int len,eStatusFlight status[], int tam_sta
 				showMessage("						  ***LISTADO DE PASAJEROS***    \n");
 				showMessage("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 				showMessage("  ID	 NOMBRE		  APELLIDO	   PRECIO VUELO	      CODIGO DE VUELO         TIPO DE PASAJERO	      ESTADO DE VUELO      \n");
-				sortPassengersByPrice(list, len, &acumuladorPrecio, &cantPassengers,&cantPassengersPromedioPrecioMayor, &promedioFinal);
+				informPrice(list, len, &acumuladorPrecio, &cantPassengers,&cantPassengersPromedioPrecioMayor, &promedioFinal);
 				printPassengers(list, len,status,tam_status,typePassenger,tamPassenger);
 				showMessage("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
@@ -589,14 +594,9 @@ int submenueInform(ePassenger list[],int len,eStatusFlight status[], int tam_sta
 				printf("\n___________________________________________________________________________________\n");
 			break;
 			case 3:
-				showMessage("\nDESEA VER LA LISTA DE FORMA ASCENDENTE (1) O DESCENDENTE (0)");
-				scanf("%d",&order);
-				while(order<0 ||order>1)
-				{
-					showMessage("\nERROR REINGRESE FORMA ASCENDENTE (1) O DESCENDENTE (0)");
-					scanf("%d",&order);
-				}
-				sortPassengersByCode(list, len,status,tam_status,typePassenger,tamPassenger);
+				utn_getNumero(&order, "\nINGRESE ASCENDENTE (1) o DESCENDENTE (0)", "\nERROR, REINGRESE ASCENDENTE (1) o DESCENDENTE (0)", 0, 1, 10000);
+
+				sortPassengersByCode(list, len,status,tam_status,typePassenger,tamPassenger,order);
 				limpioPantalla();
 			break;
 		}
