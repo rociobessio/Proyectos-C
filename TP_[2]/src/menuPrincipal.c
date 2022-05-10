@@ -21,6 +21,8 @@ void menuPrincipal()
 
 	int siguienteId=1;	//ID GENERADA
 
+	int banderaHarcode = 1;
+
 	ePassenger list[TAM];
 	ePassenger pasajeroIngresado;
 
@@ -47,13 +49,20 @@ void menuPrincipal()
 
 	do
 	{
-		utn_getNumero(&opcion, "\n---------------------------------------------------------------\n"
-								"		BIENVENID@ A NUESTRA AGENCIA\n"
-								"---------------------------------------------------------------\n"
-								"A CONTINUACION PRESIONE: "
-								"\n\n1)ALTA\n\n2)MODIFICAR\n\n3)BAJA\n\n4)INFORMAR\n\n5)ALTA FORZADA\n\n6)SALIR\n\n",
-								"\n\n\n\nERROR: "
-								"\n\n1)ALTA\n\n2)MODIFICAR\n\n3)BAJA\n\n4)INFORMAR\n\n5)ALTA FORZADA\n\n6)SALIR\n\n", 1, 6, 10000);
+		printf("\n____________________________________________________________");
+		printf("\n                                                            |");
+		printf("\n                AGENCIA DE VIAJES                           |\n");
+		printf("____________________________________________________________|\n");
+		printf("____________________________");
+		printf("\n|1)ALTA PASSENGER          |\n|"
+				"2)MODIFICAR PASSENGER     |\n|"
+				"3)BAJA DE PASSENGER       |\n|"
+				"4)INFORME PASSENGER       |\n|"
+				"5)ALTA FORZADA            |\n|"
+				"6)SALIR                   |\n");
+		printf("|__________________________|");
+		getValidInt("\nINGRESE OPCION: ", "\nERROR, REINGRESE: ","\nINGRESE NUMEROS UNICAMENTE: " ,1, 6, &opcion);
+
 		limpioPantalla();
 		switch(opcion)
 		{
@@ -79,8 +88,7 @@ void menuPrincipal()
 			case 2:
 				limpioPantalla();
 				limpioPantalla();
-				limpioPantalla();
-					if(banderaAltas==0)
+					if(banderaHarcode ==1)
 					{
 						showMessage("\n	**¡AUN NO SE DIO EL ALTA, NO SE PUEDE MODIFICAR!**\n");
 					}
@@ -94,8 +102,7 @@ void menuPrincipal()
 			case 3:
 				limpioPantalla();
 				limpioPantalla();
-				limpioPantalla();
-				if(banderaAltas==0)
+				if(banderaHarcode==1)
 				{
 					showMessage("\n**¡AUN NO SE DIO EL ALTA, NO SE PUEDE DAR DE BAJA!**\n");
 				}
@@ -115,15 +122,18 @@ void menuPrincipal()
 				system("pause");
 			break;
 			case 5:
+				banderaHarcode = 0;
 				limpioPantalla();
 				limpioPantalla();
 				altaForzadaPassengers(list,TAM,5,&siguienteId);
-				showMessage("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-				showMessage("						  ***LISTADO DE PASAJEROS***    \n");
-				showMessage("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-				showMessage("  ID	 NOMBRE		  APELLIDO	   PRECIO VUELO	      CODIGO DE VUELO         TIPO DE PASAJERO	      ESTADO DE VUELO      \n");
+				showMessage("----------------------------------------------------------------------------------------------------------------------------------|");
+				showMessage("						  ***LISTADO DE PASAJEROS***                                                      | ");
+				showMessage("|---------------------------------------------------------------------------------------------------------------------------------|");
+				showMessage("|  ID |	 NOMBRE    |	APELLIDO        |   PRECIO VUELO  |      CODIGO DE VUELO     |   TIPO DE PASAJERO  |   ESTADO DE VUELO    |   ");
+				printf("|---------------------------------------------------------------------------------------------------------------------------------|\n");
 				printPassengers(list, TAM,status,TAM_STATFGHT,typePassenger,TAM_TYPEP);
-				showMessage("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+				showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
+
 				system("pause");
 			break;
 			default:

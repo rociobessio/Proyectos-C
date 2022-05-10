@@ -21,14 +21,16 @@ int listarTypePassenger(eTypeFlight type[], int tam)
 	int todoOk = 0;
 	if(type!=NULL && tam>0)
 	{
-		printf("\n---------------------------");
-		printf("\n***LISTA DE STATUS***");
-		printf("\n   ID	  DESCRIPCION\n");
+		printf("\n--------------------------------|");
+		printf("\nLISTA TIPO DE PASAJERO          |\n");
+		printf("--------------------------------|\n");
+		printf("   ID     |         TIPO        |");
+		printf("\n--------------------------------|\n");
 		for(int i=0;i<tam;i++)
 		{
-			printf(" %4d     %10s\n", type[i].id, type[i].descripcion);
+			printf("  %4d    |  %15s    |\n", type[i].id, type[i].descripcion);
 		}
-		printf("---------------------------\n");
+		printf("---------------------------------\n");
 
 
 		todoOk = 1;

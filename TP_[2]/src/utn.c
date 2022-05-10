@@ -7,6 +7,10 @@
 #include <string.h>
 #include <ctype.h>
 
+
+#define MAX_YR  2025 //MAXIMO DE AÑO
+#define MIN_YR  1900 //MINIMO DE AÑO
+
 ///											CHICHES
 int getUserConfirmation(char* confirUser,char message[],char errorMessage[])
 {
@@ -73,8 +77,6 @@ int getUserMenuOption(char* confirUser,char message[],char errorMessage[])
 }
 
 
-
-
 int getUserMenuOptionInt(int* confirUser,char message[],char errorMessage[],int minOption,int maxOption)
 {
 	int todoOk = -1;
@@ -95,6 +97,48 @@ int getUserMenuOptionInt(int* confirUser,char message[],char errorMessage[],int 
 	}
 	return todoOk;
 }
+
+/*
+int  esAnioBisiesto(int year)
+{
+    return (((year % 4 == 0) &&
+             (year % 100 != 0)) ||
+            (year % 400 == 0));
+}
+
+
+// returns 1 if given date is valid.
+int isValidDate(int validDate[])
+{
+    //check range of year,month and day
+    if (validDate->anio > MAX_YR ||
+            validDate->anio < MIN_YR)
+        return 0;
+    if (validDate->mes < 1 || validDate->mes > 12)
+        return 0;
+    if (validDate->dia < 1 || validDate->dia > 31)
+        return 0;
+    //Handle feb days in leap year
+    if (validDate->mes == 2)
+    {
+        if (esAnioBisiesto(validDate->anio))
+            return (validDate->dia <= 29);
+        else
+            return (validDate->dia <= 28);
+    }
+    //handle months which has only 30 days
+    if (validDate->mes == 4 || validDate->mes == 6 ||
+            validDate->mes== 9 || validDate->mes == 11)
+        return (validDate->dia <= 30);
+    return 1;
+}
+*/
+
+
+
+
+
+
 
 //									STRINGS OBTENER Y VERIFICARLAS
 
@@ -266,7 +310,7 @@ char getChar(char mensaje[])
 int myGets(char* cadena, int longitud)
 {
 	int todoOk = -1;
-	char bufferString [4090];
+	char bufferString [4096];
 
 	if(cadena != NULL && longitud>0)
 	{
@@ -293,7 +337,7 @@ int esNumerica(char* cadena, int limite)//BufferString de getInt es su limite
  {
  	int todoOk = 1; // VERDADERO
  	int i;
- 	for(i=0;i<limite && cadena[i] != '\0';i++)//Mientras i sea menor a limite y la  cadena sea distinto de \n se va a seguir ejecutando
+ 	for(i=0;i<limite && cadena[i] != '\0';i++)//Mientras i sea menor a limite y la  cadena sea distinto de \0 se va a seguir ejecutando
  	{
  		if(i==0 && (cadena[i] == '+' || cadena[i] == '-'))//SOLAMENTE si i = 0, validamos signos
  		{
@@ -340,16 +384,80 @@ int utn_getNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo
 			*pResultado = bufferInt;//Aca lo que estaba estacionado en bufferInt pasa a la direccion de mememoria de pResultado
 			break;//Si tuve exito lo rompo directamente, deja de reintentar.
 		}
-		else
-		{
 			printf("%s",mensajeError);
-		}
+
 		reintentos--;//si hubo un error lo decrementa y toma como valor -1, decrementa a 0 entonces se la otro reintento
 	}while(reintentos>=0);
 
 	return todoOk;
 }
+//--------------------OTROS ENTEREOS
 
+int esNumericoII(char str[])
+{
+   int i=0;
+   while(str[i] != '\0')
+   {
+       if(str[i] < '0' || str[i] > '9')
+           return 0;
+       i++;
+   }
+   return 1;
+}
+
+void getStringInValid(char mensaje[],char input[])
+{
+    printf("%s",mensaje);
+    scanf ("%s", input);
+}
+
+int getStringNumerosEnteros(char mensaje[],char input[])
+{
+    char aux[256];
+    getStringInValid(mensaje,aux);
+    if(esNumericoII(aux))
+    {
+        strcpy(input,aux);
+        return 1;
+    }
+    return 0;
+}
+
+
+int getValidInt(char requestMessage[],char errorLenghtMessage[],char errorMessage[], int lowLimit, int hiLimit,int* input)
+{
+    char auxStr[256];
+    int auxInt;
+    int myReturn=-1;
+    while(1)
+    {
+        if (!getStringNumerosEnteros(requestMessage,auxStr))
+        {
+        	printf ("%s\n",errorMessage);
+            continue;
+
+        }
+        auxInt = atoi(auxStr);
+        if(auxInt < lowLimit || auxInt > hiLimit)
+        {
+            printf ("%s\n",errorLenghtMessage);
+            continue;
+
+        }
+        myReturn=0;
+        *input=auxInt;
+        break;
+
+    }
+
+    return myReturn;
+}
+
+
+
+
+
+///------------------------
 
 int getValidStringAlpha(char requestMessage[],char errorMessageLenght[],char input[], int lowLimit,int maxLenght)
 {

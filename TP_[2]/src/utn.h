@@ -39,6 +39,19 @@ int getUserMenuOption(char* confirUser,char message[],char errorMessage[]);
 * \return Retorna 0 (EXITO) y -1 (ERROR) si no
 */
 int getUserMenuOptionInt(int* confirUser,char message[],char errorMessage[],int minOption,int maxOption);
+
+
+/**
+* \brief RECIBE EL ANIO Y VERIFICA SI ES O NO BISIESTO
+* \return Retorna 0 (si no) y -1 (si es) si no
+*/
+int  esAnioBisiesto(int year);
+/**
+* \brief VALIDA LA FECHA, ANIO, DIA Y MES
+* \return Retorna 0 (si no) y -1 (si es) si no
+*/
+
+//int isValidDate(eFecha *validDate);				///SE USA CON ESTUCTURAS
 //-------------------------------------------------------------------------------
 //										ENTEROS:
 
@@ -87,6 +100,14 @@ int esAlfaNumerico(char string[],char message[],int maxLimit);
 
 int getValidStringAlpha(char requestMessage[],char errorMessageLenght[],char input[], int lowLimit,int maxLenght);
 
+//-------------
+int esNumericoII(char str[]);
+
+void getStringInValid(char mensaje[],char input[]);
+
+int getStringNumerosEnteros(char mensaje[],char input[]);
+
+int getValidInt(char requestMessage[],char errorLenghtMessage[],char errorMessage[], int lowLimit, int hiLimit,int* input);
 //-------------------------------------------------------------------------------
 //									FLOTANTES:
 /**
