@@ -78,13 +78,17 @@ int removePassenger(ePassenger list[],int len, int id,eStatusFlight status[],int
 		printf("\n                BAJA PASSENGERS                             |\n");
 		printf("____________________________________________________________|\n");
 		printf("\n\n");
-		showMessage("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-		showMessage("						  ***LISTADO DE PASAJEROS***    \n");
-		showMessage("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-		showMessage("  ID	 NOMBRE		  APELLIDO	   PRECIO VUELO	      CODIGO DE VUELO         TIPO DE PASAJERO	      ESTADO DE VUELO      \n");
+		printf("\n\n");
+		showMessage("----------------------------------------------------------------------------------------------------------------------------------|");
+		showMessage("						  ***LISTADO DE PASAJEROS***                                                      | ");
+		showMessage("|---------------------------------------------------------------------------------------------------------------------------------|");
+		showMessage("|  ID |	 NOMBRE    |	APELLIDO        |   PRECIO VUELO  |      CODIGO DE VUELO     |   TIPO DE PASAJERO  |   ESTADO DE VUELO    |   ");
+		printf("|---------------------------------------------------------------------------------------------------------------------------------|\n");
 		printPassengers(list, len,status,tam_status,typePassenger,tamPassenger);
-		showMessage("\n						**INGRESE EL ID**\n\n\n			");
-		scanf("%d",&idIngresada);
+		showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
+
+		getValidInt("\nINGRESE EL ID: ", "\nERROR INGRESE ID VALIDA: ", "\nINGRESE SOLO NUMEROS: ", 1, 20001, &idIngresada);
+
 		if(findPassengerById(list, len, idIngresada, &pIndex) == 1)//BUSCA EL EMPLEADO
 		{
 			if(pIndex == -1)
@@ -93,7 +97,14 @@ int removePassenger(ePassenger list[],int len, int id,eStatusFlight status[],int
 			}
 			else
 			{
-				showOnePassenger(*list,status,tam_status,typePassenger,tamPassenger);
+				showMessage("----------------------------------------------------------------------------------------------------------------------------------|");
+				showMessage("						  ***LISTADO DE PASAJEROS***                                                      | ");
+				showMessage("|---------------------------------------------------------------------------------------------------------------------------------|");
+				showMessage("|  ID |	 NOMBRE    |	APELLIDO        |   PRECIO VUELO  |      CODIGO DE VUELO     |   TIPO DE PASAJERO  |   ESTADO DE VUELO    |   ");
+				printf("|---------------------------------------------------------------------------------------------------------------------------------|\n");
+				showOnePassenger(list[pIndex],status,tam_status,typePassenger,tamPassenger);
+				showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
+
 				getUserConfirmation(&opcion, "\n**DESEA ELIMINAR AL EMPLEADO DEL SISTEMA?**\n", "\n**ERROR REINGRESE:**\n");
 				if(opcion !='s')
 				{
@@ -176,12 +187,12 @@ int addPassenger(ePassenger* list,int len,char name[],char lastName[],float pric
 
 				limpioPantalla();
 				listarTypePassenger(typePassenger2, tamPassenger);
-				utn_getNumero(&typePassenger, "\nINGRESE EL TIPO DE PASAJERO: ", "ERROR REINGRESE EL TIPO DE PASAJERO: ", 1, 4, 100);
+				utn_getNumero(&typePassenger, "INGRESE EL TIPO DE PASAJERO: ", "ERROR REINGRESE UN VALOR VALIDO. ", 1, 4, 100);
 				list[indice].typePassenger = typePassenger;
 
 				limpioPantalla();
 				listarStatusFlight(status, tam_status);
-				utn_getNumero(&statusFlight, "\nINGRESE EL ESTADO DEL VUELO: ", "ERROR REINGRESE EL ESTADO DEL VUELO: ", 1, 3, 100);
+				utn_getNumero(&statusFlight, "INGRESE EL ESTADO DEL VUELO: ", "ERROR REINGRESE UN VALOR VALIDO. ", 1, 3, 100);
 				list[indice].statusFlight = statusFlight;
 
 				list[indice].isEmpty = 0;	//CON LA VUELTA Y CARGA PASA A ESTAR OCUPADO
@@ -222,13 +233,13 @@ void showOnePassenger(ePassenger list,eStatusFlight status[],int tam,eTypeFlight
 	cargarDescripcionStatus(status, tam, list.statusFlight, descriptStatus);
 	cargarDescripcionStatusTypePassenger(typePassenger, tamPassenger, list.typePassenger, descriptTypePassenger);
 	printf("|%4d | %-10s |    %-10s	|    $%-11.2f |       %-11s	     |	  %-13s    |       %-9s      |\n", list.id,
-																					   list.name,
-																					   list.lastName,
-																					   list.price,
-																					   list.flycode,
-																					   descriptTypePassenger,
-																					   descriptStatus
-																						);
+																					                       list.name,
+																										   list.lastName,
+																										   list.price,
+																										   list.flycode,
+																										   descriptTypePassenger,
+																										   descriptStatus
+																																);
 }
 
 
@@ -277,9 +288,8 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 		printf("|---------------------------------------------------------------------------------------------------------------------------------|\n");
 		printPassengers(list, len,status,tam_status,typePassenger2,tamPassenger);
 		showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
+		getValidInt("\nINGRESE EL ID: ", "\nERROR, INGRESE UN VALOR VALIDO: ", "\nERROR, UNICAMENTE NUMEROS: ", 1, 2000, &idIngresada);
 
-		showMessage("\nINGRESE EL ID:\n");
-		scanf("%d",&idIngresada);
 		if(findPassengerById(list, len, idIngresada, &pIndex) == 1)//BUSCA EL EMPLEADO
 		{
 			if(pIndex == -1)
@@ -293,24 +303,23 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 				showMessage("|---------------------------------------------------------------------------------------------------------------------------------|");
 				showMessage("|  ID |	 NOMBRE    |	APELLIDO        |   PRECIO VUELO  |      CODIGO DE VUELO     |   TIPO DE PASAJERO  |   ESTADO DE VUELO    |   ");
 				printf("|---------------------------------------------------------------------------------------------------------------------------------|\n");
-				showOnePassenger(*list,status,tam_status,typePassenger2,tamPassenger);
+				showOnePassenger(list[pIndex],status,tam_status,typePassenger2,tamPassenger);
 				showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
 
-				getUserConfirmation(&opcion, "\nDESEA MODIFICAR A UN PASAJERO? (S/N)  ", "\nERROR REINGRESE (S/N): ");
+				getUserConfirmation(&opcion, "\nDESEA MODIFICAR A UN PASAJERO (S/N)?  ", "\nERROR REINGRESE (S/N): ");
+				printf("\n\n");
 				if(opcion =='s')
 				{
-					showMessage("\nINGRESE QUE DESEA MODIFICAR DEL PASAJERO\n");
-					getUserMenuOption(&opcion, "\nA)NOMBRE"
-												"\n\nB)APELLIDO"
-												"\n\nC)PRECIO VUELO"
-												"\n\nD)CODIGO DE VUELO"
-												"\n\nE)TIPO DE PASAJERO",
-												"\n\nERROR REINGRESE:"
-												"\n\nA)NOMBRE"
-												"\n\nB)APELLIDO"
-												"\n\nC)PRECIO VUELO"
-												"\n\nD)CODIGO DE VUELO"
-												"\n\nE)TIPO DE PASAJERO");
+					printf("____________________________");
+					printf("\n|A)NOMBRE                  |\n|"
+							"B)APELLIDO                |\n|"
+							"C)PRECIO DE VUELO         |\n|"
+							"D)CODIGO DE VUELO         |\n|"
+							"E)TIPO DE PASAJERO        |\n|"
+							"6)SALIR                   |\n");
+					printf("|__________________________|");
+					getUserMenuOption(&opcion, "\nINGRESE QUE DESEA MODIFICAR: ",
+												"\nERROR, INGRESE UN VALOR VALIDO: ");
 					switch(opcion)
 					{
 						case 'A':
@@ -374,7 +383,7 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 						break;
 						case 'E':
 							listarTypePassenger(typePassenger2, tamPassenger);
-							utn_getNumero(&auxTypePassenger, "\nINGRESE EL TIPO DE PASAJERO: ", "ERROR, REINGRESE UN VALOR VALIDO: ", 1, 4, 100);
+							utn_getNumero(&auxTypePassenger, "INGRESE EL TIPO DE PASAJERO: ", "ERROR, REINGRESE UN VALOR VALIDO. ", 1, 4, 100);
 							list[pIndex].typePassenger = auxTypePassenger;
 							if(opcion=='s')
 							{
@@ -420,29 +429,14 @@ int sortPassengers(ePassenger* list, int len, int order)
 			{
 				if(!list[i].isEmpty && !list[j].isEmpty)
 				{
-					if(order == 1)
+					if(((list[i].typePassenger == list[j].typePassenger) && strcmp(list[i].lastName,list[j].lastName)>0 && order ==1)
+						|| (list[i].typePassenger != list[j].typePassenger && list[i].typePassenger > list[j].typePassenger&& order ==1)
+						||(list[i].typePassenger == list[j].typePassenger && strcmp(list[i].lastName,list[j].lastName)<0 && order ==0)
+						||(list[i].typePassenger != list[j].typePassenger && list[i].typePassenger < list[j].typePassenger&& order ==0))
 					{
-						if(strcmp(list[i].lastName,list[j].lastName)>0)//ASC
-						{
-							auxiPasajero = list[i];
-							list[i] = list[j];
-							list[j] = auxiPasajero;
-						}
-						else if(strcmp(list[i].lastName,list[j].lastName)==0 && list[i].typePassenger>list[j].typePassenger)
-						{
-							auxiPasajero = list[i];
-							list[i] = list[j];
-							list[j] = auxiPasajero;
-						}
-					}
-					else
-					{
-						 if(strcmp(list[i].lastName,list[j].lastName)<0 && list[i].typePassenger<list[j].typePassenger)
-						{
-							auxiPasajero = list[i];
-							list[i] = list[j];
-							list[j] = auxiPasajero;
-						}
+						auxiPasajero = list[i];
+						list[i] = list[j];
+						list[j] = auxiPasajero;
 					}
 				}
 			}
@@ -467,7 +461,7 @@ int informPrice(ePassenger list[],int len,float* acumPrecio,int* cantPassengers,
 	{
 		for(int i = 0; i<len;i++)
 		{
-			if(list[i].price>0 && list[i].isEmpty==0)// ID activo
+			if(list[i].price>0 && list[i].isEmpty==0)
 			{
 				cantPasajeros++;
 				acumPasaje=list[i].price  + acumPasaje;
@@ -507,20 +501,20 @@ int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam
 		{
 			for(int j = i;j<len;j++)
 			{
-				if(!list[i].isEmpty && !list[j].isEmpty)
+				if(!list[i].isEmpty && !list[j].isEmpty )
 				{
-					if(order==1)
+					if(order==1)//&& status[i].id == 1 && status[j].id == 1
 					{
-						if(strcmp(list[i].flycode,list[j].flycode)>0 && list[i].statusFlight == 1 && list[j].statusFlight == 1)
+						if(strcmp(list[i].flycode,list[j].flycode)>0 )
 						{
 							auxPassanger = list[i];
 							list[i]= list[j];
 							list[j]= auxPassanger;
 						}
 					}
-					else if(order==0)
+					else if(order==0)//
 					{
-						if(strcmp(list[i].flycode,list[j].flycode)<0 && list[i].statusFlight == 1 && list[j].statusFlight == 1)
+						if(strcmp(list[i].flycode,list[j].flycode)<0)
 						{
 							auxPassanger = list[i];
 							list[i]= list[j];
@@ -530,6 +524,7 @@ int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam
 				}
 			}
 		}
+
 		showMessage("----------------------------------------------------------------------------------------------------------------------------------|");
 		showMessage("						  ***LISTADO DE PASAJEROS***                                                      | ");
 		showMessage("|---------------------------------------------------------------------------------------------------------------------------------|");
@@ -537,19 +532,18 @@ int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam
 		printf("|---------------------------------------------------------------------------------------------------------------------------------|\n");
 		for(int i =0; i<len;i++)
 		{
-			if(!list[i].isEmpty)
+			if(!list[i].isEmpty && list[i].statusFlight == 1)
 			{
-				showOnePassenger(list[i],status,tam_status,typePassenger,tamPassenger);
+				 showOnePassenger(list[i],status,tam_status,typePassenger,tamPassenger);
 			}
-
 		}
 		showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
 
+
+
+
 		todoOk=0;
 	}
-
-
-
 	return todoOk;
 }
 
@@ -581,7 +575,7 @@ int submenueInform(ePassenger list[],int len,eStatusFlight status[], int tam_sta
 				"2)TOTAL Y PROMEDIO DE PRECIOS                              |\n|"
 				"3)CODIGO DE VUELO Y ESTADO DE VUELO ACTIVO                 |\n");
 		printf("|___________________________________________________________|");
-		utn_getNumero(&opcion, "\nINGRESE: ", "\nERROR, REINTENTE: ", 1 , 3, 5000);
+		utn_getNumero(&opcion, "\nINGRESE: ", "\nERROR, REINTENTE UN VALOR VALIDO ", 1 , 3, 5000);
 		switch (opcion)
 		{
 			case 1:
@@ -590,7 +584,7 @@ int submenueInform(ePassenger list[],int len,eStatusFlight status[], int tam_sta
 				printf("\n|1)ASCENDENTE         |\n|"
 						"0)DESCENDENTE        |\n");
 				printf("|_____________________|");
-				utn_getNumero(&order, "\nINGRESE COMO DESEA VER LA LISTA:", "\nERROR, REINGRESE VALOR VALIDO: ", 0, 1, 10000);
+				utn_getNumero(&order, "\nINGRESE COMO DESEA VER LA LISTA:", "\nERROR, REINGRESE VALOR VALIDO ", 0, 1, 10000);
 				sortPassengers(list, len, order);
 				limpioPantalla();
 				showMessage("----------------------------------------------------------------------------------------------------------------------------------|");
@@ -627,9 +621,9 @@ int submenueInform(ePassenger list[],int len,eStatusFlight status[], int tam_sta
 				printf("\n|1)ASCENDENTE         |\n|"
 						"0)DESCENDENTE        |\n");
 				printf("|_____________________|");
-				utn_getNumero(&order, "\nINGRESE COMO DESEA VER LA LISTA:", "\nERROR, REINGRESE VALOR VALIDO: ", 0, 1, 10000);
+				utn_getNumero(&order, "\nCOMO DESEA VER LA LISTA: ", "\nERROR, REINGRESE VALOR VALIDO ", 0, 1, 10000);
 				sortPassengersByCode(list, len,status,tam_status,typePassenger,tamPassenger,order);
-				limpioPantalla();
+
 			break;
 		}
 
@@ -668,3 +662,4 @@ int altaForzadaPassengers(ePassenger* list, int len, int cant,int* id)
 
 	return todoOk;
 }
+

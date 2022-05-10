@@ -40,7 +40,6 @@ void menuPrincipal()
 };
 
 
-	int banderaAltas =0;
 
 	initPassanger(list, TAM); //LOS INICIALIZO
 
@@ -75,7 +74,7 @@ void menuPrincipal()
 				if(addPassenger(list, TAM, pasajeroIngresado.name,pasajeroIngresado.lastName,pasajeroIngresado.price,pasajeroIngresado.flycode,pasajeroIngresado.typePassenger,pasajeroIngresado.statusFlight,siguienteId,status,TAM_STATFGHT,typePassenger,TAM_TYPEP)) //si devuelve 1 todo salio bien
 				{
 					siguienteId++;
-					banderaAltas=1;//CAMBIAMOS EL VALOR
+
 				}
 				else
 				{
@@ -118,7 +117,14 @@ void menuPrincipal()
 			case 4:
 				limpioPantalla();
 				limpioPantalla();
-				submenueInform(list, TAM,status,TAM_STATFGHT,typePassenger,TAM_TYPEP);
+				if(banderaHarcode==1)
+				{
+					showMessage("\n**¡AUN NO HAY NADIE EN EL SISTEMA, NO SE PUEDE INFORMAR!**\n");
+				}
+				else
+				{
+					submenueInform(list, TAM,status,TAM_STATFGHT,typePassenger,TAM_TYPEP);
+				}
 				system("pause");
 			break;
 			case 5:
@@ -133,7 +139,6 @@ void menuPrincipal()
 				printf("|---------------------------------------------------------------------------------------------------------------------------------|\n");
 				printPassengers(list, TAM,status,TAM_STATFGHT,typePassenger,TAM_TYPEP);
 				showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
-
 				system("pause");
 			break;
 			default:

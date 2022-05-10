@@ -99,7 +99,7 @@ int altaForzadaPassengers(ePassenger* list, int len, int cant,int* id);
 
 //INFORMES:
 
-/// @brief Ordena el array de pasajeros por apellido y tipo de pasajero 	2.5
+/// @brief Ordena el array de pasajeros por tipo de pasajero en caso de empate lo hace mediante apellido 	2.5
 ///	de forma ascendente (1) o descendente (0).
 /// @param list PUNTERO al array de pasajeros
 /// @param len int array tamaño
