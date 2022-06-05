@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "LinkedList.h"
+#include "Passenger.h"
+
+
+int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
+{
+	int todoOk = 0;
+	int elementoUno=1;
+
+	//AUXILIARIES
+	Passenger *pAuxPassenger;
+	char auxId[5000];
+	char auxName[5000];
+	char auxLastName[5000];
+	char auxPrice[5000];
+	char auxCodeFlight[5000];
+	char auxTypePassenger[5000];
+	char auxStatus[5000];
+
+	if(pFile!=NULL)
+	{
+		while (!feof(pFile)) {//WHILE IT ISN'T THE END OF THE FILE CONTINUE
+			if (elementoUno)
+			{
+				fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", auxId, auxName,
+						auxLastName,auxPrice,auxCodeFlight,auxTypePassenger,auxStatus);//READ THE LIST
+				elementoUno = 0;
+			}
+			fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", auxId, auxName,
+					auxLastName,auxPrice,auxCodeFlight,auxTypePassenger,auxStatus);
+
+			pAuxPassenger = Passenger_newParametros(auxId, auxName, auxTypePassenger, auxLastName, auxStatus, auxPrice, auxCodeFlight);//ADD A NEW PASSENGER
+
+			if(pAuxPassenger!=NULL)//IF EVERYTHING LOADED TO pAuxPassenger!=NULL THEN ADD IT TO THE LIST
+			{
+				ll_add(pArrayListPassenger, pAuxPassenger);
+				todoOk=1;
+			}
+		}
+	}
+    return todoOk;
+}
+
+
+int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
+{
+	int todoOk=0;
+
+	Passenger *pAuxPassenger;
+
+	if(pFile!=NULL)
+	{
+		while(!feof(pFile))//WHILE IT ISN'T THE END OF THE FILE CONTINUE
+		{
+			pAuxPassenger = Passenger_new();//INIT THE PASSENGER
+			if(fread(pAuxPassenger,sizeof(Passenger),1,pFile) ==1)//IF RETURNS 1
+			{
+				ll_add(pArrayListPassenger, pAuxPassenger);
+			}
+		}
+		todoOk=1;
+	}
+    return todoOk;
+}
