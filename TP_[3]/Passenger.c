@@ -135,7 +135,7 @@ int Passenger_ShowOnlyOne(Passenger *Passenger)
 int Passenger_setNombre(Passenger* this,char* nombre)
 {
 	int todoOk = -1;
-	if(this!=NULL && nombre!=NULL && strlen(nombre)<48  && strlen(nombre)>=3)
+	if(this!=NULL && nombre!=NULL && strlen(nombre)<48  && strlen(nombre)>=2)
 	{
 		if(esNombre(nombre, 49))
 		{
@@ -221,16 +221,15 @@ int Passenger_setPrecio(Passenger* this,float precio)
 {
 	int todoOk = 0;
 
-	if (this != NULL) {
-		if(precio>=0){
-			this->precio = precio;
-			todoOk = 1;
-		}
+	if (this != NULL && precio>0)
+	{
+		this->precio = precio;
+		todoOk = 1;
 	}
 	return todoOk;
 }
 
-////				GETTERS
+//   				GETTERS
 int Passenger_getNombre(Passenger* this,char* nombre)
 {
 	int todoOk=-1;
@@ -281,7 +280,8 @@ int Passenger_getPrecio(Passenger* this,float* precio)
 {
 	int todoOk = 0;
 
-	if (this != NULL && precio != NULL) {
+	if (this != NULL && precio != NULL)
+	{
 		*precio = this->precio;
 		todoOk = 1;
 	}

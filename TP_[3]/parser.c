@@ -21,19 +21,20 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 
 	if(pFile!=NULL)
 	{
-		while (!feof(pFile)) {//WHILE IT ISN'T THE END OF THE FILE CONTINUE
+		while (!feof(pFile))
+		{//WHILE IT ISN'T THE END OF THE FILE CONTINUE
 			if (elementoUno)
 			{
 				fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", auxId, auxName,
-						auxLastName,auxPrice,auxCodeFlight,auxTypePassenger,auxStatus);//READ THE LIST
+						auxLastName,auxPrice,auxCodeFlight,auxTypePassenger,auxStatus);
 				elementoUno = 0;
 			}
 			fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", auxId, auxName,
 					auxLastName,auxPrice,auxCodeFlight,auxTypePassenger,auxStatus);
 
-			pAuxPassenger = Passenger_newParametros(auxId, auxName, auxTypePassenger, auxLastName, auxStatus, auxPrice, auxCodeFlight);//ADD A NEW PASSENGER
+			pAuxPassenger = Passenger_newParametros(auxId, auxName, auxTypePassenger, auxLastName, auxStatus, auxPrice, auxCodeFlight);
 
-			if(pAuxPassenger!=NULL)//IF EVERYTHING LOADED TO pAuxPassenger!=NULL THEN ADD IT TO THE LIST
+			if(pAuxPassenger!=NULL)
 			{
 				ll_add(pArrayListPassenger, pAuxPassenger);
 				todoOk=1;
@@ -54,7 +55,7 @@ int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 	{
 		while(!feof(pFile))//WHILE IT ISN'T THE END OF THE FILE CONTINUE
 		{
-			pAuxPassenger = Passenger_new();//INIT THE PASSENGER
+			pAuxPassenger = Passenger_new();
 			if(fread(pAuxPassenger,sizeof(Passenger),1,pFile) ==1)//IF RETURNS 1
 			{
 				ll_add(pArrayListPassenger, pAuxPassenger);

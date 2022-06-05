@@ -27,7 +27,8 @@ int saveAsText_maxID(FILE* pFile, LinkedList* pArrayListPassenger,int* maxID)
         {
         	passenger = ll_get(pArrayListPassenger,i);
             Passenger_getHigherId(passenger,&id);
-            if(flag==0 || id>maxId){
+            if(flag==0 || id>maxId)
+            {
             	maxId = id;
             	flag=1;
             }
@@ -43,9 +44,10 @@ int controller_saveAsTextMaxID(FILE* pFile,char* path, LinkedList* pArrayListPas
     int todoOk = 0;
     int maxID;
 
-    if(pFile !=NULL && saveAsText_maxID(pFile,pArrayListPassenger,&maxID)){//SI ESCRIBI ES XQ ES !=NULL ENTONCES 1
+    if(pFile !=NULL && saveAsText_maxID(pFile,pArrayListPassenger,&maxID))
+    {
         todoOk = 1;
-        fprintf(pFile,"%d\n",maxID+1);	//WRITE PASSENGERS
+        fprintf(pFile,"%d\n",maxID+1);
     }
     return todoOk;
 }
@@ -68,7 +70,8 @@ int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
 		fclose(pFile);
 		todoOk=1;
 	}
-	if(controller_saveAsTextMaxID(pFile2,"maxID.txt", pArrayListPassenger)){
+	if(controller_saveAsTextMaxID(pFile2,"maxID.txt", pArrayListPassenger))
+	{
 		fclose(pFile2);
 	}
 
@@ -95,19 +98,21 @@ int controller_loadFromBinary(char* path , LinkedList *pArrayListPassenger)
 
 	if(controller_saveAsTextMaxID(pFile2,"maxID.txt", pArrayListPassenger))
 	{
-		fclose(pFile2);
+		fclose(pFile2);//CLOSE ID TXT
 	}
 
     return todoOk;
 }
 
 //				CONTROLLERS DE ID
-int obtainID(int* id){
+int obtainID(int* id)
+{
 	int todoOk = 0;
 	int newID;
 	FILE* pFile;
 	pFile = fopen("lastID.txt","r"); //OPEN FILE
-	if(pFile!=NULL){
+	if(pFile!=NULL)
+	{
 		fscanf(pFile, "%d\n", &newID);
 		*id = newID;
 		fclose(pFile); //IF CAN BE OPENED THEN CLOSE IT AT THE END
@@ -116,12 +121,14 @@ int obtainID(int* id){
 	return todoOk;
 }
 
-int upgradeID(int id){
+int upgradeID(int id)
+{
 	int nextID = ++id; //UPGRADE'S ID
 	int todoOk = 0;
 	FILE* pFile;
 	pFile = fopen("lastID.txt","w"); //OPEN TXT
-	if(pFile!=NULL){
+	if(pFile!=NULL)
+	{
 		fprintf(pFile,"%d\n",nextID);
 		fclose(pFile); //IF CAN BE OPENED THE CLOSE IT AT THE END
 		todoOk = 1;
@@ -181,7 +188,7 @@ int controller_addPassenger(LinkedList *pArrayListPassenger)
 				Passenger_setTipoPasajero(pAuxPassenger, auxTypePassenger);
 				Passenger_setStatusFlight(pAuxPassenger, auxStatusFlight);
 				ll_add(pArrayListPassenger, pAuxPassenger);//ADDS THEM TO THE LIST
-				upgradeID(auxId);//UPGRADE'S ID TO THE NEXT PASSENGER
+				upgradeID(auxId);//UPGRADE'S ID
 				todoOk=1;
 			}
 		}
