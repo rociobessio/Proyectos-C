@@ -127,7 +127,7 @@ void goingToMainMenu()
 					pFunctionCheckValues("\nTHE FILE HAS ALREADY BEEN OPENED!",
 							"\nEXISTING ERROR WHILE OPENING FILE IN BINARY MODE!",
 							"\nTHE FILE HAS BEEN OPENNED SUCCESSFULLY IN BINARY MODE!",
-							&fileState, STATE_FILE_OPEN, STATE_FILE_OPEN, "data.csv", listaPasajeros, controller_loadFromBinary);
+							&fileState, STATE_FILE_OPEN, STATE_FILE_OPEN, "data.bin", listaPasajeros, controller_loadFromBinary);
 				}
 				system("Pause");
 			break;
@@ -187,7 +187,7 @@ void goingToMainMenu()
 				limpioPantalla();
 				if(fileState==1)
 				{
-					controller_saveAsBinary("data.csv", listaPasajeros);
+					controller_saveAsBinary("data.bin", listaPasajeros);
 					fileState = 0;
 					printf("\nTHE FILE HAS BEEN CLOSED AND SAVED SUCCESSFULLY IN BINARY MODE!\n");
 					binaryState=1;
