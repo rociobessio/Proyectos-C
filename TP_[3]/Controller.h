@@ -75,8 +75,6 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger);
  */
 int controller_showOptionMenuSort();
 
-
-
 /** \brief Ordenar pasajeros
  *
  * \param path char*
@@ -85,10 +83,6 @@ int controller_showOptionMenuSort();
  *
  */
 int controller_sortPassenger(LinkedList* pArrayListPassenger);
-
-
-
-int controller_saveAsTextCvsFormat(FILE* pFile,LinkedList* pArrayListPassenger);//[NO ES NECESARIA] - DELETE
 
 /** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo texto).
  *
@@ -99,7 +93,7 @@ int controller_saveAsTextCvsFormat(FILE* pFile,LinkedList* pArrayListPassenger);
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListPassenger);
 
-/** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo binario).
+/** \brief Guarda los datos de los pasajeros en el archivo data.bin (modo binario).
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
@@ -108,44 +102,42 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger);
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger);
 
-
-
-//CONTROLLES IDs I MADE
+//CONTROLLERS DE  ID
 /**
- * \brief GENERATES A NEW ID
+ * \brief Obtenemos una id
  * \param int* id POINTER TO ID
  * \return	Retorna 1 si pudo, sino 0.
  */
-int obtainID(int* id);///[DONE]
+int obtainID(int* id);
+
 /**
  * \brief UPGRADES THE IDs
  * \param int id
  * \return	Retorna 1 si pudo, sino 0.
  */
-int upgradeID(int id);///[DONE]
+int upgradeID(int id);
 
 /**
- * @fn int controller_saveAsTextMaxID(FILE*, char*, LinkedList*)
- * @brief ESCRIBE LA ID MAXIMA DE LA LISTA
+ * @fn int controller_saveBinaryLastId(FILE*, char*, LinkedList*)
+ * @brief ESCRIBE LA ID MAXIMA DE LA LISTA EN BINARIO
  *
  * @param pFile
  * @param path
  * @param pArrayListPassenger
  * @return 1 si todo salio bien, 0 si ocurrio algo
  */
-int controller_saveAsTextMaxID(FILE* pFile,char* path, LinkedList* pArrayListPassenger);
-
+int controller_saveBinaryLastId(FILE* pFile,char* path, LinkedList* pArrayListPassenger);
 
 /**
- * @fn int controller_saveAsTextMaxID(FILE*, char*, LinkedList*)
- * @brief GUARDA LA ID MAXIMA DE LA LISTA
+ * @fn int saveAsBinary_LastID(FILE*, char*, LinkedList*)
+ * @brief GUARDA LA ID MAXIMA DE LA LISTA EN BINARIO!
  *
  * @param pFile
  * @param path
  * @param pArrayListPassenger
  * @return 1 si todo salio bien, 0 si ocurrio algo
  */
-int saveAsText_maxID(FILE* pFile, LinkedList* pArrayListPassenger,int* maxID);
+int saveAsBinary_LastID(FILE* pFile, LinkedList* pArrayListPassenger,int* maxID);
 
 
 
