@@ -8,50 +8,6 @@
 #include"parser.h"
 
 
-/*
-int saveAsText_maxID(FILE* pFile, LinkedList* pArrayListPassenger,int* maxID)
-{
-    Passenger* passenger;
-
-    int id;
-    int len_LL;
-    int todoOk = 0;
-    int maxId;
-    int flag = 0;
-
-    if(pFile != NULL && pArrayListPassenger != NULL)
-    {
-        len_LL = ll_len(pArrayListPassenger);
-
-        for(int i=0; i<len_LL; i++)
-        {
-        	passenger = ll_get(pArrayListPassenger,i);
-            Passenger_getHigherId(passenger,&id);
-            if(flag==0 || id>maxId)
-            {
-            	maxId = id;
-            	flag=1;
-            }
-            todoOk = 1;
-        }
-    }
-    *maxID = maxId;
-    return todoOk;
-}
-
-int controller_saveAsTextMaxID(FILE* pFile,char* path, LinkedList* pArrayListPassenger)
-{
-    int todoOk = 0;
-    int maxID;
-
-    if(pFile !=NULL && saveAsText_maxID(pFile,pArrayListPassenger,&maxID))
-    {
-        todoOk = 1;
-        fprintf(pFile,"%d\n",maxID+1);//LA GUARDO
-    }
-    return todoOk;
-}*/
-
 int saveAsBinary_LastID(FILE* pFile, LinkedList* pArrayListPassenger,int* maxID)
 {
     Passenger* passenger;
@@ -166,7 +122,7 @@ int upgradeID(int id)
 	int nextID = ++id; //UPGRADE'S ID
 	int todoOk = 0;
 	FILE* pFile;
-	pFile = fopen("ultimaID.bin","wb"); //OPEN TXT
+	pFile = fopen("ultimaID.bin","wb"); //OPEN
 	if(pFile!=NULL)
 	{
 		fprintf(pFile,"%d\n",nextID);//LA ESCRIBO EN EL ARCHIVO
