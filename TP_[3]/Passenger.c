@@ -417,98 +417,78 @@ static int esNombre(char* cadena,int longitud)
 
 
 //						SORT PASSENGERS
-int Passenger_sortByName(void *name1,void *name2)
+int Passenger_sortByName(void* name1,void* name2)
 {
 	int todoOk = 0;
 
-	char auxName1[200];
-	char auxName2[200];
 
-	Passenger_getNombre(name1, auxName1);
-	Passenger_getNombre(name2, auxName2);
+	Passenger* auxPas1;
+	Passenger* auxPas2;
 
 	if(name1!=NULL && name2!=NULL)
 	{
-		if(strcmp(auxName1,auxName2)>0)
-		{
-			todoOk=1;
-		}
-		else if(strcmp(auxName1,auxName2)<0)
-		{
-			todoOk=-1;
-		}
+		auxPas1 = (Passenger*) name1;
+		auxPas2 = (Passenger*) name2;
+
+		todoOk = strcmp(auxPas1->nombre,auxPas2->nombre);
 	}
 
 	return todoOk;
 }
 
-int Passenger_sortByLastName(void *lastName1,void *lastName2)
+int Passenger_sortByLastName(void* lastName1,void* lastName2)
 {
 	int todoOk = 0;
 
-	char auxLastName1[200];
-	char auxLastName2[200];
-
-	Passenger_getApellido(lastName1, auxLastName1);
-	Passenger_getApellido(lastName2, auxLastName2);
+	Passenger* auxPas1;
+	Passenger* auxPas2;
 
 	if(lastName1!=NULL && lastName2!=NULL)
 	{
-		if(strcmp(auxLastName1,auxLastName2)>0)
-		{
-			todoOk=1;
-		}
-		else if(strcmp(auxLastName1,auxLastName2)<0)
-		{
-			todoOk=-1;
-		}
+		auxPas1 = (Passenger*) lastName1;
+		auxPas2 = (Passenger*) lastName2;
+
+		todoOk = strcmp(auxPas1->apellido,auxPas2->apellido);
 	}
 
 	return todoOk;
 }
 
-int Passenger_sortByCodeFlight(void *flightCode1,void *flightCode2)
+int Passenger_sortByCodeFlight(void* flightCode1,void* flightCode2)
 {
 	int todoOk = 0;
 
-	char auxFligtCode1[200];
-	char auxFlightCode2[200];
-
-	Passenger_getCodigoVuelo(flightCode1, auxFligtCode1);
-	Passenger_getCodigoVuelo(flightCode2, auxFlightCode2);
+	Passenger* auxPas1;
+	Passenger* auxPas2;
 
 	if(flightCode1!=NULL && flightCode2!=NULL)
 	{
-		if(strcmp(auxFligtCode1,auxFlightCode2)>0)
-		{
-			todoOk=1;
-		}
-		else if(strcmp(auxFligtCode1,auxFlightCode2)<0)
-		{
-			todoOk=-1;
-		}
+		auxPas1 = (Passenger*) flightCode1;
+		auxPas2 = (Passenger*) flightCode2;
+
+		todoOk = strcmp(auxPas1->codigoVuelo,auxPas2->codigoVuelo);
 	}
 
 	return todoOk;
 }
 
-int Passenger_sortByPrice(void *price1,void *price2)
+int Passenger_sortByPrice(void* price1,void* price2)
 {
 	int todoOk = 0;
 
-	float auxPrice1;
-	float auxPrice2;
-
-	Passenger_getPrecio(price1, &auxPrice1);
-	Passenger_getPrecio(price2, &auxPrice2);
+	Passenger* auxPas1;
+	Passenger* auxPas2;
 
 	if(price1!=NULL && price2!=NULL)
 	{
-		if(auxPrice1>auxPrice2)
+		auxPas1 = (Passenger*) price1;
+		auxPas2 = (Passenger*) price2;
+
+		if(auxPas1->precio>auxPas2->precio)
 		{
 			todoOk=1;
 		}
-		else if(auxPrice1<auxPrice2)
+		else if(auxPas1->precio<auxPas2->precio)
 		{
 			todoOk=-1;
 		}
@@ -517,23 +497,23 @@ int Passenger_sortByPrice(void *price1,void *price2)
 	return todoOk;
 }
 
-int Passenger_sortByTypePassenger(void *type1,void *type2)
+int Passenger_sortByTypePassenger(void* type1,void* type2)
 {
 	int todoOk = 0;
 
-	int auxType1;
-	int auxType2;
-
-	Passenger_getTipoPasajero(type1, &auxType1);
-	Passenger_getTipoPasajero(type2, &auxType2);
+	Passenger* auxPas1;
+	Passenger* auxPas2;
 
 	if(type1!=NULL && type2!=NULL)
 	{
-		if(auxType1>auxType2)
+		auxPas1 = (Passenger*) type1;
+		auxPas2 = (Passenger*) type2;
+
+		if(auxPas1->tipoPasajero>auxPas2->tipoPasajero)
 		{
 			todoOk=1;
 		}
-		else if(auxType1<auxType2)
+		else if(auxPas1->tipoPasajero<auxPas2->tipoPasajero)
 		{
 			todoOk=-1;
 		}
@@ -542,23 +522,23 @@ int Passenger_sortByTypePassenger(void *type1,void *type2)
 	return todoOk;
 }
 
-int Passenger_sortByStatusFlight(void *status1,void *status2)
+int Passenger_sortByStatusFlight(void* status1,void* status2)
 {
 	int todoOk = 0;
 
-	int auxStatus1;
-	int auxStatus2;
-
-	Passenger_getStatusFlight(status1, &auxStatus1);
-	Passenger_getStatusFlight(status2, &auxStatus2);
+	Passenger* auxPas1;
+	Passenger* auxPas2;
 
 	if(status1!=NULL && status2!=NULL)
 	{
-		if(auxStatus1>auxStatus2)
+		auxPas1 = (Passenger*) status1;
+		auxPas2 = (Passenger*) status2;
+
+		if(auxPas1->statusFlight>auxPas2->statusFlight)
 		{
 			todoOk=1;
 		}
-		else if(auxStatus1<auxStatus2)
+		else if(auxPas1->statusFlight<auxPas2->statusFlight)
 		{
 			todoOk=-1;
 		}

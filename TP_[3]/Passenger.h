@@ -19,8 +19,6 @@ typedef struct
 	char codigoVuelo[8]; //EN data.cvs EL CODIGO DE VUELO ES DE 7 CARACTERES!
 	int statusFlight; //NO ESTABA EN NINGUNA BIBLIO PERO SI DENTRO DEL ARCHIVO data.csv
 
-	char descripcionStatus[25];
-
 }Passenger;
 
 
@@ -273,7 +271,7 @@ int Passenger_ShowOnlyOne(Passenger *Passenger);
  * @param name2 void*
  * @return 0 si no pudo, 1 si pudo, -1 si es menor
  */
-int Passenger_sortByName(void *name1,void *name2); //[CUMPLE SU FUNCION]
+int Passenger_sortByName(void* name1,void* name2); //[CUMPLE SU FUNCION]
 
 /**
  * @fn int Passenger_sortByLastName(void*, void*)
@@ -283,7 +281,7 @@ int Passenger_sortByName(void *name1,void *name2); //[CUMPLE SU FUNCION]
  * @param lastName2 void*
  * @return  0 si no pudo, 1 si pudo, -1 si es menor
  */
-int Passenger_sortByLastName(void *lastName1,void *lastName2); //[CUMPLE SU FUNCION]
+int Passenger_sortByLastName(void* lastName1,void* lastName2); //[CUMPLE SU FUNCION]
 
 /**
  * @fn int Passenger_sortByCodeFlight(void*, void*)
@@ -293,7 +291,7 @@ int Passenger_sortByLastName(void *lastName1,void *lastName2); //[CUMPLE SU FUNC
  * @param flightCode2 void*
  * @return  0 si no pudo, 1 si pudo, -1 si es menor
  */
-int Passenger_sortByCodeFlight(void *flightCode1,void *flightCode2); //[CUMPLE SU FUNCION]
+int Passenger_sortByCodeFlight(void* flightCode1,void* flightCode2); //[CUMPLE SU FUNCION]
 
 /**
  * @fn int Passenger_sortByPrice(void*, void*)
@@ -303,7 +301,7 @@ int Passenger_sortByCodeFlight(void *flightCode1,void *flightCode2); //[CUMPLE S
  * @param price2 void*
  * @return  0 si no pudo, 1 si pudo, -1 si es menor
  */
-int Passenger_sortByPrice(void *price1,void *price2); //[CUMPLE SU FUNCION]
+int Passenger_sortByPrice(void* price1,void* price2); //[CUMPLE SU FUNCION]
 
 /**
  * @fn int Passenger_sortByTypePassenger(void*, void*)
@@ -313,7 +311,7 @@ int Passenger_sortByPrice(void *price1,void *price2); //[CUMPLE SU FUNCION]
  * @param type2 void*
  * @return  0 si no pudo, 1 si pudo, -1 si es menor
  */
-int Passenger_sortByTypePassenger(void *type1,void *type2); //[CUMPLE SU FUNCION]
+int Passenger_sortByTypePassenger(void* type1,void* type2); //[CUMPLE SU FUNCION]
 
 /**
  * @fn int Passenger_sortByStatusFlight(void*, void*)
@@ -323,5 +321,5 @@ int Passenger_sortByTypePassenger(void *type1,void *type2); //[CUMPLE SU FUNCION
  * @param status2 void*
  * @return  0 si no pudo, 1 si pudo, -1 si es menor
  */
-int Passenger_sortByStatusFlight(void *status1,void *status2); //[CUMPLE SU FUNCION]
+int Passenger_sortByStatusFlight(void* status1,void* status2); //[CUMPLE SU FUNCION]
 #endif /* PASSENGER_H_ */

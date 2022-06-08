@@ -38,14 +38,14 @@ int menu()
 	printf("__________________________________________________________________________|\n");
 	printf("_________________________________________________________________________________");
 	printf("\n|1)LOAD THE PASSENGERS DATA FROM THE FILE data.csv (IN TEXT MODE)               |\n|"
-			"2)LOAD THE PASSENGERS DATA FROM THE FILE data.csv (IN BINARY MODE)             |\n|"
+			"2)LOAD THE PASSENGERS DATA FROM THE FILE data.bin (IN BINARY MODE)             |\n|"
 			"3)ADD PASSENGER                                                                |\n|"
 			"4)MODIFY PASSENGER                                                             |\n|"
 			"5)REMOVE PASSENGER                                                             |\n|"
 			"6)LIST PASSENGERS                                                              |\n|"
 			"7)SORT PASSENGERS                                                              |\n|"
 			"8)SAVE THE PASSENGERS DATA FROM THE FILE data.csv (IN TEXT MODE)               |\n|"
-			"9)SAVE THE PASSENGERS DATA FROM THE FILE data.csv (IN BINARY MODE)             |\n|"
+			"9)SAVE THE PASSENGERS DATA FROM THE FILE data.bin (IN BINARY MODE)             |\n|"
 			"10)EXIT APP                                                                    |\n");
 	printf("|_______________________________________________________________________________|");
 	utn_getNumero(&opcion, "\nENTER AN OPTION: ", "\n[INVALID VALUE, TRY AGAIN.] ", 1, 10, 10);

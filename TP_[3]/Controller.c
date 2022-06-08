@@ -264,7 +264,7 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
 		todoOk=1;
 		for(int i=0;i<ll_len(pArrayListPassenger);i++)
 		{
-			pAuxPassenger = ll_get(pArrayListPassenger, i);
+			pAuxPassenger = (Passenger*) ll_get(pArrayListPassenger, i);
 			Passenger_ShowOnlyOne(pAuxPassenger);
 		}
 
@@ -511,33 +511,39 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
 		switch(controller_showOptionMenuSort())
 		{
 			case 1:
+				printf("\n\nPLEASE WAIT, THE LIST IS BEING SORTED...!\n");
 				ll_sort(pArrayListPassenger, Passenger_sortByName, 1);
 				printf("\nNOW YOU CAN SEE THE LIST!\n");
 				system("Pause");
 			break;
 			case 2:
+				printf("\n\nPLEASE WAIT, THE LIST IS BEING SORTED...!\n");
 				ll_sort(pArrayListPassenger, Passenger_sortByLastName, 1);
 				printf("\nNOW YOU CAN SEE THE LIST!\n");
 				system("Pause");
 			break;
 			case 3:
+				printf("\nPLEASE WAIT, THE LIST IS BEING SORTED...!\n");
 				ll_sort(pArrayListPassenger, Passenger_sortByPrice, 1);
-				printf("\nNOW YOU CAN SEE THE LIST!\n");
+				printf("\n\nNOW YOU CAN SEE THE LIST!\n");
 				system("Pause");
 			break;
 			case 4:
+				printf("\nPLEASE WAIT, THE LIST IS BEING SORTED...!\n");
 				ll_sort(pArrayListPassenger, Passenger_sortByTypePassenger, 1);
-				printf("\nNOW YOU CAN SEE THE LIST!\n");
+				printf("\n\nNOW YOU CAN SEE THE LIST!\n");
 				system("Pause");
 			break;
 			case 5:
+				printf("\nPLEASE WAIT, THE LIST IS BEING SORTED...!\n");
 				ll_sort(pArrayListPassenger, Passenger_sortByStatusFlight, 1);
-				printf("\nNOW YOU CAN SEE THE LIST!\n");
+				printf("\n\nNOW YOU CAN SEE THE LIST!\n");
 				system("Pause");
 			break;
 			case 6:
+				printf("\nPLEASE WAIT, THE LIST IS BEING SORTED...!\n");
 				ll_sort(pArrayListPassenger, Passenger_sortByCodeFlight, 1);
-				printf("\nNOW YOU CAN SEE THE LIST!\n");
+				printf("\n\nNOW YOU CAN SEE THE LIST!\n");
 				system("Pause");
 			break;
 		}
