@@ -52,29 +52,6 @@ int menu()
 	return opcion;
 }
 
-//FUNCTIONS TO KEEP ON CHECK THE LOADING OF FILES
-void pFunctionCheckValues(char* messageError1,char* messageError2,char* messageSucess,int* flag,int flagValue,
-	int NewflagValue,char*path,LinkedList* array,int(*pFunction)(char*,LinkedList*)){
-
-	int flagCompare = *flag;
-
-	if(flagCompare==flagValue){ //IF EQUAL 1 THEN IT'S OPEN!
-		printf("\n%s\n",messageError1);
-	}
-	else
-	{
-		if(!pFunction(path,array))
-		{
-			printf("\n%s\n",messageError2);
-		}
-		else
-		{
-			printf("\n%s\n",messageSucess);//THE FILE WAS OPENED SUCCESSFULLY
-			*flag = NewflagValue; // UPDATE FLAG, IF 1 IT'S OPEN &  0 IF SAVED.
-		}
-	}
-}
-
 void pFunction(char* messageError1,char* messageError2,char* messageSucess,int* flag,int flagValue,
 				LinkedList* array,int(*pFunction)(LinkedList*)){
 	int flagForCompare = *flag;
@@ -110,10 +87,15 @@ void goingToMainMenu()
     	{
 			case 1:
 				limpioPantalla();
-				pFunctionCheckValues("\nTHE FILE HAS ALREADY BEEN OPENED!",
-						"\nEXISTING ERROR WHILE OPENING FILE IN TEXT MODE!",
-						"\nTHE FILE HAS BEEN OPENNED SUCCESSFULLY IN TEXT MODE!",
-						&fileState, STATE_FILE_OPEN, STATE_FILE_OPEN, "data.csv", listaPasajeros, controller_loadFromText);
+				if(controller_loadFromText("data.csv", listaPasajeros) == 1)
+				{
+					printf("\nTHE FILE HAS BEEN OPENNED SUCCESSFULLY IN TEXT MODE!\n");
+					fileState = 1;
+				}
+				else
+				{
+					printf("\nEXISTING ERROR WHILE OPENING FILE IN TEXT MODE!\n");
+				}
 				system("Pause");
 			break;
 			case 2:
@@ -124,10 +106,16 @@ void goingToMainMenu()
 				}
 				else
 				{
-					pFunctionCheckValues("\nTHE FILE HAS ALREADY BEEN OPENED!",
-							"\nEXISTING ERROR WHILE OPENING FILE IN BINARY MODE!",
-							"\nTHE FILE HAS BEEN OPENNED SUCCESSFULLY IN BINARY MODE!",
-							&fileState, STATE_FILE_OPEN, STATE_FILE_OPEN, "data.bin", listaPasajeros, controller_loadFromBinary);
+					if(controller_loadFromBinary("data.bin", listaPasajeros) == 1)
+					{
+						printf("\nTHE FILE HAS BEEN OPENNED SUCCESSFULLY IN BINARY MODE!\n");
+						fileState = 1;
+					}
+					else
+					{
+						printf("\nEXISTING ERROR WHILE OPENING FILE IN BINARY MODE!\n");
+					}
+
 				}
 				system("Pause");
 			break;

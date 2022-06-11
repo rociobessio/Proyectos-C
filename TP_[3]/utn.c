@@ -578,7 +578,7 @@ int esAlfaNumerico(char string[],char message[],int maxLimit)
 		getStringAlfanumerica(message, string);
 		while(string[i]!='\0')//UN WHILE O FOR SERIA LO MISMO
 		{
-			if((string[i]!=' ')&&(string[i]<'a' || string[i]>'z')&&(string[i]<'A'||string[i]>'Z')&&(string[i]<'0' || string[i]>'9'))
+			if((string[i]!=' ')&&(string[i]<'a' || string[i]>'z')&&(string[i]<'A'||string[i]>'Z')&&(string[i]<'0' || string[i]>'9') && (string[i]!='.'))
 			{
 				todoOk = 0;
 				//continue;
