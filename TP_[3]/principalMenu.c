@@ -198,6 +198,7 @@ void goingToMainMenu()
 					if(confirmation=='s')
 					{
 						printf("YOU HAVE CHOOSEN TO CLOSE THE APP!\nSEE YOU SOON.....\n");
+						ll_deleteLinkedList(listaPasajeros);
 					}
 					else
 					{
