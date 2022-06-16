@@ -1,0 +1,7 @@
+1,Brodie,Margett,4,6.980000
+3,Rosabel,Messent,4,7.210000
+4,Denise,Scanes,4,9.570000
+21,Joby,Ruprecht,4,7.950000
+22,Vassili,Dailey,4,6.300000
+23,Barbi,Brechin,4,9.680000
+24,Shaughn,Widdall,4,6.460000

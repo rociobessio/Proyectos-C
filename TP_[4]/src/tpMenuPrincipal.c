@@ -1,0 +1,281 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "LinkedList.h"
+#include "utn.h"
+#include "Alumno.h"
+#include "parser.h"
+#include "controller.h"
+
+
+#define STATE_FILE_OPEN 1
+#define STATE_FILE_CLOSED 0
+
+int menu()
+{
+	int opcion;
+
+	printf("\n__________________________________________________________________________");
+	printf("\n                                                                          |");
+	printf("\n                       WELCOME TO THE UTN                                 |\n");
+	printf("__________________________________________________________________________|\n");
+	printf("_________________________________________________________________________________");
+	printf("\n|1)LOAD THE STUDENTS DATA FROM THE FILE alumnos.csv (IN TEXT MODE)              |\n|"
+			"2)LOAD THE STUDENTS DATA FROM THE FILE alumnos.csv (IN BINARY MODE)            |\n|"
+			"3)ADD STUDENT                                                                  |\n|"
+			"4)MODIFY STUDENT                                                               |\n|"
+			"5)REMOVE STUDENT                                                               |\n|"
+			"6)LIST STUDENTS                                                                |\n|"
+			"7)SORT STUDENTS                                                                |\n|"
+			"8)CLONE LIST STUDENTS                                                          |\n|"
+			"9)FILTER LIST STUDENTS                                                         |\n|"
+			"10)DOES THE CLONED LIST CONTAINS ALL THE ELEMENTS FROM THE MAIN LIST?          |\n|"
+			"11)CREATE A NEW SUBLIST                                                        |\n|"
+			"12)MAKE A PUSH ON THE LIST                                                     |\n|"
+			"13)SAVE THE STUDENTS DATA FROM A FILE (IN TEXT MODE)                           |\n|"
+			"14)SAVE THE STUDENTS DATA FROM A FILE (IN BINARY MODE)                         |\n|"
+			"15)EXIT APP                                                                    |\n");
+	printf("|_______________________________________________________________________________|");
+	utn_getNumero(&opcion, "\nENTER AN OPTION: ", "\n[INVALID VALUE, TRY AGAIN.] ", 1, 15, 10);
+	return opcion;
+}
+
+void pFunction(char* messageError1,char* messageError2,char* messageSucess,int* flag,int flagValue,
+				LinkedList* array,int(*pFunction)(LinkedList*)){
+	int flagForCompare = *flag;
+
+	if(flagForCompare==flagValue)
+	{
+		printf("\n%s\n",messageError1);
+	}else
+	{
+		if (!pFunction(array))
+		{
+			printf("\n%s\n",messageError2);
+		} else
+		{
+			printf("\n%s\n",messageSucess);
+		}
+	}
+}
+
+//PRINCIPAL MENU
+void goingToMainMenu()
+{
+
+	char confirmation = 'n';
+	int fileState = 0;
+	int binaryState=0;
+	char path[50000];
+	int flag = 0;
+
+	LinkedList* clonarListaAlumnos = ll_newLinkedList(); //creo nueva lista
+
+    LinkedList* listaAlumnos = ll_newLinkedList(); //creo nueva lista
+    //validar q no sea NULL
+    if(listaAlumnos!=NULL)
+    {
+    	 if(ll_isEmpty(listaAlumnos)){//se verifica que la lista este vacia...
+    	    	printf("\nLISTA INICIALIZADA!");
+    	    }
+
+    	    do
+    	    {
+    	    	limpioPantalla();
+    	    	switch(menu())
+    	    	{
+    				case 1://ABRIR ARCHIVO DE TEXTO
+    					limpioPantalla();
+    					if(controller_loadFromText("alumnos.csv", listaAlumnos) == 1)
+    					{
+    						printf("\nTHE FILE HAS BEEN OPENNED SUCCESSFULLY IN TEXT MODE!\n");
+    						fileState = 1;
+    					}
+    					else
+    					{
+    						printf("\nEXISTING ERROR WHILE OPENING FILE IN TEXT MODE!\n");
+    					}
+    					system("Pause");
+    				break;
+    				case 2://ABRIR ARCHIVO BINARIO
+    					limpioPantalla();
+    					if(binaryState==0)
+    					{
+    						printf("\nBEFORE LOADING THE FILE IN BINARY MODE YOU NEED TO OPEN IT IN TEXT MODE AND SAVE IT IN BINARY TO BE ABLE TO USE IT!\n");
+    					}
+    					else
+    					{
+    						if(controller_loadFromBinary("alumnos.bin", listaAlumnos) == 1)
+    						{
+    							printf("\nTHE FILE HAS BEEN OPENNED SUCCESSFULLY IN BINARY MODE!\n");
+    							fileState = 1;
+    						}
+    						else
+    						{
+    							printf("\nEXISTING ERROR WHILE OPENING FILE IN BINARY MODE!\n");
+    						}
+    					}
+    					system("Pause");
+    				break;
+    				case 3://ANIADIR UN ALUMNO
+    					limpioPantalla();
+    					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
+    							"\nTHERE WAS AN ERROR WHILE TRYING TO ADD THE STUDENT! ",
+    							"\nYOU HAVE EXITED THE ADD!",
+    							&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_addAlumno);
+    					system("Pause");
+    				break;
+    				case 4://EDITAR UN ALUMNO
+    					limpioPantalla();
+    					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
+    							"\nTHERE WAS AN ERROR WHILE TRYING TO MODIFY THE STUDENT! ",
+    							"\nYOU HAVE EXITED THE MODIFICATIONS MENU!",
+    							&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_editAlumnos);
+    					system("Pause");
+    				break;
+    				case 5://ELIMINAR UN ALUMNO
+    					limpioPantalla();
+    					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
+    							"\nTHERE WAS AN ERROR WHILE TRYING TO REMOVE THE STUDENT! ",
+    							"\nYOU HAVE EXITED THE REMOVAL MENU!",
+    							&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_removeAlumno);
+    					system("Pause");
+    				break;
+    				case 6://LISTAR A LOS ALUMNOS
+    					limpioPantalla();
+    					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
+    							"\nTHERE WAS AN ERROR TRYING TO LIST THE STUDENTS, TRY AGAIN! ",
+    							"\nTHE LIST OF STUDENTS HAS BEEN SHOWED SUCCESFULLY!",
+    							&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_ListAlumnos);
+    					system("Pause");
+    				break;
+    				case 7://ORDENAR A LOS ALUMNOS
+    					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
+    							"\nTHERE WAS AN ERROR TRYING TO SORT THE STUDENTS, TRY AGAIN! ",
+    							"\nTHE STUDENTS HAVE BEEN SORTED SUCCESFULLY!",
+    							&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_sortAlumnos);
+    				break;
+    				case 8://CLONAR LA LISTA
+    					clonarListaAlumnos = ll_clone(listaAlumnos);
+    					if(clonarListaAlumnos==NULL)
+    					{
+    						printf("\nTHERE WAS AN ERROR WHILE TRYING TO CLONE THE LIST!");
+    					}
+    					else
+    					{
+							getValidStringAlpha("\nENTER THE FILE'S NAME: ", "\n[INVALID VALUES, TRY AGAIN]\n", path, 3, 15);
+    						controller_ListAlumnos(clonarListaAlumnos);
+    						printf("\nTHE LIST HAS BEEN CLONED AND SAVED SUCCESFULLY!\n");
+    						controller_saveAsText(path, clonarListaAlumnos);
+    						flag=1;
+    					}
+    					system("Pause");
+    				break;
+    				case 9://FILTRAR A LOS ALUMNOS
+    					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
+    							"\nTHERE WAS AN ERROR TRYING TO SORT THE STUDENTS, TRY AGAIN! ",
+								"\nTHE STUDENTS HAVE BEEN FILTERED SUCCESFULLY!",
+								&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_FilterAlumnos);
+    					system("Pause");
+    				break;
+    				case 10://LA LISTA CLONADA CONTIENE A TODOS LOS ELEMENTOS DE LA PRINCIPAL?
+    					if(flag==1)
+    					{
+    						if(ll_containsAll(clonarListaAlumnos,listaAlumnos)==1)
+    						{
+    							printf("\nTHE CLONED LIST CONTAINS ALL THE ELEMENTS!\n");
+    						}
+    						else
+    						{
+    							printf("\nTHE CLONED LIST DOESN'T CONTAINS ALL THE ELEMENTS\n");
+    						}
+    					}
+    					else
+    					{
+    						printf("\nFIRST YOU NEED TO CLONE THE LIST!\n");
+    					}
+    					system("Pause");
+    				break;
+    				case 11://CREAR UNA SUB LISTA
+    					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
+    							"\nTHERE WAS AN ERROR WHILE TRYING TO MAKE THE SUBIST, TRY AGAIN! ",
+								"\nYOU HAVE EXITED THE SUB LIST MENU!",
+    							&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_createANewSublist);
+    					system("Pause");
+    				break;
+    				case 12://HACER UN PUSH
+    					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
+    							"\nTHERE WAS AN ERROR WHILE TRYING TO PUSH, TRY AGAIN! ",
+								"\nYOU HAVE EXITED THE PUSH SECTION!",
+    							&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_MakeAPush);
+    					system("Pause");
+    				break;
+    				case 13://GUARDAR EN FORMATO TXT
+    					limpioPantalla();
+    					if(fileState==1)
+    					{
+    						if(!controller_saveAsText("alumnos.csv", listaAlumnos))//"alumnos.csv"
+    						{
+    							fileState = 0;
+    							printf("\nTHE FILE HAS BEEN CLOSED AND SAVED SUCCESSFULLY IN TEXT MODE!\n");
+    						}
+    						else
+    						{
+    							printf("\nERROR WHILE TRYING TO SAVE THE FILE!\n");
+    						}
+    					}
+    					else
+    					{
+    						printf("\nYOU NEED TO LOAD THE FILE FIRST!\n");
+    					}
+    					system("Pause");
+    				break;
+    				case 14://GUARDAR EN BINARIO
+    					limpioPantalla();
+    					if(fileState==1)
+    					{
+    						if(controller_saveAsBinary("alumnos.bin", listaAlumnos)==1)
+    						{
+    							fileState = 0;
+    							printf("\nTHE FILE HAS BEEN CLOSED AND SAVED SUCCESSFULLY IN BINARY MODE!\n");
+    							binaryState=1;
+    						}
+    						else
+    						{
+    							printf("\nERROR WHILE TRYING TO SAVE THE FILE!\n");
+    						}
+    					}
+    					else
+    					{
+    						printf("\nYOU NEED TO LOAD THE FILE FIRST!\n");
+    					}
+    					system("Pause");
+    				break;
+    				case 15://SALIR DE LA APLICACION
+    					limpioPantalla();
+    					if(fileState!=0)
+    					{
+    						printf("\nBEFORE EXITING THE APP YOU NEED TO SAVE THE FILE!\n");
+    					}
+    					else
+    					{
+    						getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO CLOSE THE APP (S/N)?: ", "\nINVALID VALUE, TRY AGAIN (S/N)!: ");
+    						if(confirmation=='s')
+    						{
+    							printf("YOU HAVE CHOOSEN TO CLOSE THE APP!\nSEE YOU SOON.....\n");
+    							ll_deleteLinkedList(listaAlumnos);//borro la lista
+    						}
+    						else
+    						{
+    							printf("YOU HAVE CHOOSEN TO CONTINUE USING THE APP!\n");
+    						}
+    					}
+    					system("Pause");
+    					break;
+    	    	}
+    	    }while(confirmation!='s');
+    }
+}
+
+

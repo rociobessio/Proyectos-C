@@ -1,0 +1,5 @@
+14,Kristoforo,Flott,2,1.070000
+17,Shena,Lailey,2,8.540000
+27,Jelene,Hastie,2,4.740000
+28,Ileane,Mantione,2,7.450000
+30,Roi,Zuann,2,8.520000

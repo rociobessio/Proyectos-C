@@ -1,0 +1,6 @@
+31,Rocio,Bessio,2,4.000000
+26,Hervey,Hedlestone,3,2.450000
+27,Jelene,Hastie,2,4.740000
+28,Ileane,Mantione,2,7.450000
+29,Emmalyn,Farnworth,1,8.280000
+30,Roi,Zuann,2,8.520000
