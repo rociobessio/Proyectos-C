@@ -5,7 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "LinkedList.h"
+#include "../inc/LinkedList.h"
 #include  "utn.h"
 
 //							STATIC LIBRARIES

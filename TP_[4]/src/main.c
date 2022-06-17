@@ -1,12 +1,32 @@
+/*
+    utest example : Unit test examples.
+    Copyright (C) <2018>  <Mauricio Davila>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "LinkedList.h"
 #include "utn.h"
 #include "Alumno.h"
 #include "parser.h"
 #include "controller.h"
+
+#include "../testing/inc/main_test.h"
+#include "../inc/LinkedList.h"
 
 
 #define STATE_FILE_OPEN 1
@@ -35,9 +55,10 @@ int menu()
 			"12)MAKE A PUSH ON THE LIST                                                     |\n|"
 			"13)SAVE THE STUDENTS DATA FROM A FILE (IN TEXT MODE)                           |\n|"
 			"14)SAVE THE STUDENTS DATA FROM A FILE (IN BINARY MODE)                         |\n|"
-			"15)EXIT APP                                                                    |\n");
+			"15)SHOW TESTING LINKEDLIST                                                     |\n|"
+			"16)EXIT APP                                                                    |\n");
 	printf("|_______________________________________________________________________________|");
-	utn_getNumero(&opcion, "\nENTER AN OPTION: ", "\n[INVALID VALUE, TRY AGAIN.] ", 1, 15, 10);
+	utn_getNumero(&opcion, "\nENTER AN OPTION: ", "\n[INVALID VALUE, TRY AGAIN.] ", 1, 16, 10);
 	return opcion;
 }
 
@@ -60,9 +81,10 @@ void pFunction(char* messageError1,char* messageError2,char* messageSucess,int* 
 	}
 }
 
-//PRINCIPAL MENU
-void goingToMainMenu()
+int main(void)
 {
+	setbuf(stdout,NULL);
+
 
 	char confirmation = 'n';
 	int fileState = 0;
@@ -253,7 +275,29 @@ void goingToMainMenu()
     					}
     					system("Pause");
     				break;
-    				case 15://SALIR DE LA APLICACION
+    				case 15://TEST
+    					startTesting(1);  // ll_newLinkedList [HECHA]
+    					startTesting(2);  // ll_len [HECHA]
+    				    startTesting(3);  // getNode - test_getNode [HECHA]
+    					startTesting(4);  // addNode - test_addNode [HECHA]
+    					startTesting(5);  // ll_add [HECHA]
+    					startTesting(6);  // ll_get [HECHA]
+    					startTesting(7);  // ll_set [HECHA]
+    					startTesting(8);  // ll_remove [HECHA]
+    					startTesting(9);  // ll_clear [HECHA]
+    					startTesting(10); // ll_deleteLinkedList [HECHA]
+    					startTesting(11); // ll_indexOf [HECHA]
+    					startTesting(12); // ll_isEmpty [HECHA]
+    					startTesting(13); // ll_push [HECHA]
+    					startTesting(14); // ll_pop [HECHA]
+    					startTesting(15); // ll_contains [HECHA]
+    					startTesting(16); // ll_containsAll [HECHA]
+    					startTesting(17); // ll_subList [HECHA]
+    					startTesting(18); // ll_clone [HECHA]
+    					startTesting(19); // ll_sort [HECHA]
+    					system("Pause");
+    				break;
+    				case 16://SALIR DE LA APLICACION
     					limpioPantalla();
     					if(fileState!=0)
     					{
@@ -278,6 +322,39 @@ void goingToMainMenu()
     	    	}
     	    }while(confirmation!='s');
     }
+
+    return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

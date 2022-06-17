@@ -1,4 +1,4 @@
-#include "LinkedList.h"
+#include "../inc/LinkedList.h"
 #include "utn.h"
 #include "Alumno.h"
 #include "parser.h"

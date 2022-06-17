@@ -1,4 +1,4 @@
-
+#include "../inc/LinkedList.h"
 /** \brief Parsea los datos los datos de los pasajeros desde el archivo alumnos.csv (modo texto).
  *
  * \param path char*

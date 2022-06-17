@@ -1,5 +1,5 @@
 
-#include "LinkedList.h"
+#include "../inc/LinkedList.h"
 
 #ifndef ALUMNO_H_
 #define ALUMNO_H_
