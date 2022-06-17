@@ -689,10 +689,7 @@ int controller_createANewSublist(LinkedList* pArrayListAlumnos)
 
 	int indexTo;
 	int idSearchTo;
-/*
- * NO ANDA
- * SI ELIMINAS UN ELEMENTO DE LA LISTA HACE UNA POSICION MAS
- */
+
 	if(pArrayListAlumnos!=NULL)
 	{
 		controller_ListAlumnos(pArrayListAlumnos);
@@ -751,6 +748,7 @@ int controller_MakeAPush(LinkedList* pArrayListAlumnos)
 
 	//AUXILIARIES
 	eAlumno *pAuxAlumno;
+	eAlumno *pAuxAlumno2;
 
 	int index;
 	int maxId;
@@ -768,13 +766,19 @@ int controller_MakeAPush(LinkedList* pArrayListAlumnos)
 		index = Alumno_searchForLegajo(pArrayListAlumnos, idSearch);
 		auxIndexPush = Alumno_searchForLegajo(pArrayListAlumnos, indexToPush);
 
-		if(index==-1)
+
+		pAuxAlumno = ll_get(pArrayListAlumnos, index); //GET THE ELEMENT FROM THE LIST
+		pAuxAlumno2 = ll_get(pArrayListAlumnos, auxIndexPush); //GET THE ELEMENT FROM THE LIST
+
+		if(ll_contains(pArrayListAlumnos, pAuxAlumno)==0)
 		{
-			printf("\nTHERE IS NO STUDENT WITH ID Nº%d",idSearch);
+			printf("\n[THE LIST DOESN'T CONTAINS A STUDENT WITH ID Nº%d]",idSearch);
+			todoOk=1;
 		}
-		else if(auxIndexPush==-1)
+		else if(ll_contains(pArrayListAlumnos, pAuxAlumno2)==0)
 		{
-			printf("\nTHERE IS NO STUDENT WITH THE INDEX Nº%d SO IT IS IMPOSIBLE TO MAKE PUSH",indexToPush);
+			printf("\n[THE LIST DOESN'T CONTAINS AN STUDEN WITH INDEX Nº%d SO IT IS IMPOSIBLE TO PUSH IT]",indexToPush);
+			todoOk=1;
 		}
 		else
 		{
