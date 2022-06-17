@@ -293,15 +293,10 @@ int controller_editAlumnos(LinkedList* pArrayListAlumnos)
 		utn_getNumero(&idSearch, "\nENTER STUDENT IDs TO MODIFY: ", "\n[INVALID VALUES, PLEASE TRY AGAIN.]", 1, (maxId-1), 50);
 
 		index = Alumno_searchForLegajo(pArrayListAlumnos, idSearch);
-
-		if(index==-1)
+		pAuxAlumno = ll_get(pArrayListAlumnos, index);
+		if(ll_contains(pArrayListAlumnos, pAuxAlumno)==1)
 		{
-			printf("\n THERE IS NO STUDENT WITH ID Nº%d",idSearch);
-		}
-		else
-		{
-			pAuxAlumno = ll_get(pArrayListAlumnos, index);
-
+			printf("\n[THE STUDENT IS ON THE LIST!]");
 			if(pAuxAlumno!=NULL)//VALIDO PORQUE PUEDE DEVOLVER NULL
 			{
 				printf("\n\n");
@@ -315,20 +310,20 @@ int controller_editAlumnos(LinkedList* pArrayListAlumnos)
 				switch(controller_selectMenuOption())
 				{
 					case 1:
-					utn_getNombre(auxName, 48, "\nENTER THE STUDENT'S NEW NAME: ", "\n[ERROR ONLY LETTERS, A MAX OF 48 CHARACTERS & NO SPACES.]  ", 50);
-					getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO CHANGE THE STUDENT'S NAME (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN (S/N): ");
-					if(confirmation=='s')
-					{
-						convertFirstLetterStringUpper(auxName);
-						printf("\nSTUDENT NAME HAS BEEN UPDATED TO %s\n",auxName);
-						Alumno_setNombre(pAuxAlumno, auxName);
-					}
-					else
-					{
-						printf("\nTHE MODIFICATION HAS BEEN CANCELLED!");
-					}
-					todoOk=1;
-					system("Pause");
+						utn_getNombre(auxName, 48, "\nENTER THE STUDENT'S NEW NAME: ", "\n[ERROR ONLY LETTERS, A MAX OF 48 CHARACTERS & NO SPACES.]  ", 50);
+						getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO CHANGE THE STUDENT'S NAME (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN (S/N): ");
+						if(confirmation=='s')
+						{
+							convertFirstLetterStringUpper(auxName);
+							printf("\nSTUDENT NAME HAS BEEN UPDATED TO %s\n",auxName);
+							Alumno_setNombre(pAuxAlumno, auxName);
+						}
+						else
+						{
+							printf("\nTHE MODIFICATION HAS BEEN CANCELLED!");
+						}
+						todoOk=1;
+						system("Pause");
 					break;
 					case 2:
 						utn_getNombre(auxLastName, 48, "\nENTER THE STUDENT'S NEW LAST NAME: ", "\n[ERROR ONLY LETTERS, A MAX OF 48 CHARACTERS & NO SPACES.]  ", 50);
@@ -368,6 +363,11 @@ int controller_editAlumnos(LinkedList* pArrayListAlumnos)
 				}
 			}
 		}
+		else
+		{
+			printf("\n[THE STUDENT ISN'T ON THE LIST!]");
+			todoOk=1;
+		}
 	}
     return todoOk;
 }
@@ -401,36 +401,45 @@ int controller_removeAlumno(LinkedList* pArrayListAlumno)
 		pAlumno = ll_get(pArrayListAlumno, index); //GET THE ELEMENT FROM THE LIST
 
 		indexToDelete = ll_indexOf(pArrayListAlumno, pAlumno);//me devuelve la primer ocurrencia de ese elemento
-
-		if(pAlumno!=NULL)//ME PUEDE DEVOLVER NULL
+		if(ll_contains(pArrayListAlumno, pAlumno)==1)
 		{
-			Alumno_getLegajo(pAlumno, &obtainedLegajo); //GET THE ID
+			printf("\n[THE STUDENT IS ON THE LIST!]");
 
-			if(obtainedLegajo == legajoAlumno)
+			if(pAlumno!=NULL)//ME PUEDE DEVOLVER NULL
 			{
-				printf("\n\n");
-				printf("|-----------------------------------------------------------------------------------------------|\n");
-				printf("|				 STUDENTS LIST                                                  | \n");
-				printf("|-----------------------------------------------------------------------------------------------|\n");
-				printf("|  ID |	    NAME       |	  LAST NAME       |           SUBJECT        |   PROMEDY        |\n");
-				printf("|-----|----------------|--------------------------|--------------------------|------------------|\n");
-				Alumno_ShowOnlyOne(pAlumno);
-				getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO REMOVE THE PASSENGER FROM THE LIST (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN PRESSING (S/N): ");
-				if(confirmation=='s')
+				Alumno_getLegajo(pAlumno, &obtainedLegajo); //GET THE ID
+
+				if(obtainedLegajo == legajoAlumno)
 				{
-					ll_remove(pArrayListAlumno, indexToDelete);//paso esa primer ocurrencia para eliminarla
-					if(pArrayListAlumno!=NULL)//ME PUEDE DEVOLVER NULL
+					printf("\n\n");
+					printf("|-----------------------------------------------------------------------------------------------|\n");
+					printf("|				 STUDENTS LIST                                                  | \n");
+					printf("|-----------------------------------------------------------------------------------------------|\n");
+					printf("|  ID |	    NAME       |	  LAST NAME       |           SUBJECT        |   PROMEDY        |\n");
+					printf("|-----|----------------|--------------------------|--------------------------|------------------|\n");
+					Alumno_ShowOnlyOne(pAlumno);
+					getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO REMOVE THE PASSENGER FROM THE LIST (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN PRESSING (S/N): ");
+					if(confirmation=='s')
 					{
-						Alumno_delete(pAlumno);
-						printf("\nTHE PASSENGER HAS BEEN REMOVED SUCCESSFULLY!");
+						ll_remove(pArrayListAlumno, indexToDelete);//paso esa primer ocurrencia para eliminarla
+						if(pArrayListAlumno!=NULL)//ME PUEDE DEVOLVER NULL
+						{
+							Alumno_delete(pAlumno);
+							printf("\nTHE PASSENGER HAS BEEN REMOVED SUCCESSFULLY!");
+						}
 					}
+					else
+					{
+						printf("\nTHE PASSENGER'S REMOVAL HAS BEEN CANCELLED!");
+					}
+					todoOk=1;
 				}
-				else
-				{
-					printf("\nTHE PASSENGER'S REMOVAL HAS BEEN CANCELLED!");
-				}
-				todoOk=1;
 			}
+		}
+		else
+		{
+			printf("\n[THE STUDENT ISN'T ON THE LIST!]");
+			todoOk=1;
 		}
 	}
     return todoOk;

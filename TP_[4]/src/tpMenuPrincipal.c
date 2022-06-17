@@ -77,7 +77,7 @@ void goingToMainMenu()
     if(listaAlumnos!=NULL)
     {
     	 if(ll_isEmpty(listaAlumnos)){//se verifica que la lista este vacia...
-    	    	printf("\nLISTA INICIALIZADA!");
+    	    	printf("\n[LISTA INICIALIZADA!]");
     	    }
 
     	    do
@@ -161,6 +161,7 @@ void goingToMainMenu()
     					if(clonarListaAlumnos==NULL)
     					{
     						printf("\nTHERE WAS AN ERROR WHILE TRYING TO CLONE THE LIST!");
+    						ll_deleteLinkedList(clonarListaAlumnos);
     					}
     					else
     					{
@@ -265,6 +266,7 @@ void goingToMainMenu()
     						{
     							printf("YOU HAVE CHOOSEN TO CLOSE THE APP!\nSEE YOU SOON.....\n");
     							ll_deleteLinkedList(listaAlumnos);//borro la lista
+    							ll_deleteLinkedList(clonarListaAlumnos);
     						}
     						else
     						{

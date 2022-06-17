@@ -27,7 +27,7 @@ static Node* getNode(LinkedList* this, int nodeIndex);
 static int addNode(LinkedList* this, int nodeIndex,void* pElement);
 
 
-LinkedList* ll_newLinkedList(void)
+LinkedList* ll_newLinkedList(void)//[USADA]
 {
     LinkedList* this = (LinkedList*) malloc(sizeof(LinkedList));
 
@@ -39,7 +39,7 @@ LinkedList* ll_newLinkedList(void)
     return this;
 }
 
-int ll_len(LinkedList* this)
+int ll_len(LinkedList* this)//[USADA]
 {
     int returnAux = -1;
 
@@ -121,7 +121,7 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
 }
 
 
-int ll_add(LinkedList* this, void* pElement)
+int ll_add(LinkedList* this, void* pElement)//[USADA]
 {
     int returnAux = -1;
 
@@ -137,7 +137,7 @@ int ll_add(LinkedList* this, void* pElement)
 }
 
 
-void* ll_get(LinkedList* this, int index)//RETORNAR ELEMENTO especificado
+void* ll_get(LinkedList* this, int index)//RETORNAR ELEMENTO especificado [USADA]
 {
     void* returnAux = NULL;
 
@@ -157,7 +157,7 @@ void* ll_get(LinkedList* this, int index)//RETORNAR ELEMENTO especificado
 }
 
 
-int ll_set(LinkedList* this, int index,void* pElement)//PISA UN ELEMENTO EN ESE NODO EN ESA POSICION
+int ll_set(LinkedList* this, int index,void* pElement)//PISA UN ELEMENTO EN ESE NODO EN ESA POSICION [USADA]
 {
     int returnAux = -1;//obtener nodo get
 
@@ -177,7 +177,7 @@ int ll_set(LinkedList* this, int index,void* pElement)//PISA UN ELEMENTO EN ESE 
 }
 
 
-int ll_remove(LinkedList* this,int index)
+int ll_remove(LinkedList* this,int index)//[USADA]
 {
     int returnAux = -1;
 
@@ -210,7 +210,7 @@ int ll_remove(LinkedList* this,int index)
 }
 
 
-int ll_clear(LinkedList* this)//RECORRE Y LLAMA A REMOVE
+int ll_clear(LinkedList* this)//RECORRE Y LLAMA A REMOVE [USADA]
 {
     int returnAux = -1;
 
@@ -238,7 +238,7 @@ int ll_clear(LinkedList* this)//RECORRE Y LLAMA A REMOVE
 }
 
 
-int ll_deleteLinkedList(LinkedList* this)//LLAMA AL CLEAR
+int ll_deleteLinkedList(LinkedList* this)//LLAMA AL CLEAR [USADA]
 {
     int returnAux = -1;
 
@@ -255,7 +255,7 @@ int ll_deleteLinkedList(LinkedList* this)//LLAMA AL CLEAR
 }
 
 
-int ll_indexOf(LinkedList* this, void* pElement)
+int ll_indexOf(LinkedList* this, void* pElement)//[USADA]
 {
     int returnAux = -1;
 
@@ -274,7 +274,7 @@ int ll_indexOf(LinkedList* this, void* pElement)
 }
 
 
-int ll_isEmpty(LinkedList* this)
+int ll_isEmpty(LinkedList* this)//[USADA]
 {
     int returnAux = -1;
 
@@ -291,14 +291,14 @@ int ll_isEmpty(LinkedList* this)
 }
 
 
-int ll_push(LinkedList* this, int index, void* pElement)//METE UN NODO ENTRE DOS
+int ll_push(LinkedList* this, int index, void* pElement)//METE UN NODO ENTRE DOS [USADA]
 {
     //creo un nodo y hago que apunte a pElement en la posicion indicada
     return addNode(this, index, pElement);//LO MISMO QUE RECIBO ES LO MISMO QUE PASO
 }
 
 
-void* ll_pop(LinkedList* this,int index)
+void* ll_pop(LinkedList* this,int index)//[USADA]
 {
     void* returnAux = NULL;
 
@@ -312,7 +312,7 @@ void* ll_pop(LinkedList* this,int index)
 }
 
 
-int ll_contains(LinkedList* this, void* pElement)
+int ll_contains(LinkedList* this, void* pElement)//[USADA]
 {
     int returnAux = -1;
 
@@ -328,7 +328,7 @@ int ll_contains(LinkedList* this, void* pElement)
 }
 
 
-int ll_containsAll(LinkedList* this,LinkedList* this2)//COMPARO Y ME FIJO SI ESTA EN LA OTRA NO ES NECESARIA LA MISMA CANTIDAD
+int ll_containsAll(LinkedList* this,LinkedList* this2)//COMPARO Y ME FIJO SI ESTA EN LA OTRA NO ES NECESARIA LA MISMA CANTIDAD [USADA]
 {
     int returnAux = -1;
 
@@ -351,7 +351,7 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)//COMPARO Y ME FIJO SI EST
 }
 
 
-LinkedList* ll_subList(LinkedList* this,int from,int to)
+LinkedList* ll_subList(LinkedList* this,int from,int to)//[USADA]
 {
     LinkedList* cloneArray = NULL;
 
@@ -373,7 +373,7 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 }
 
 
-LinkedList* ll_clone(LinkedList* this)//devuelve copia del original
+LinkedList* ll_clone(LinkedList* this)//devuelve copia del original [USADA]
 {
     LinkedList* cloneArray = NULL;
 
@@ -386,7 +386,7 @@ LinkedList* ll_clone(LinkedList* this)//devuelve copia del original
 }
 
 
-int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
+int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)//[USADA]
 {
     int returnAux =-1;
 
@@ -413,7 +413,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     return returnAux;
 }
 
-LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
+LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))//[USADA]
 {
 	LinkedList* nuevaLinked = NULL;//la nueva lista
 	void* pAux = NULL;//Creo un auxiliar para guardar lo que filtro
