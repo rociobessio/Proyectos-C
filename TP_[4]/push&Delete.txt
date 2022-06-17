@@ -1,0 +1,9 @@
+31,Gaston,Marke,1,8.000000
+21,Joby,Ruprecht,4,7.950000
+22,Vassili,Dailey,4,6.300000
+24,Shaughn,Widdall,4,6.460000
+25,Mora,Ind,3,9.070000
+27,Jelene,Hastie,2,4.740000
+28,Ileane,Mantione,2,7.450000
+29,Emmalyn,Farnworth,1,8.280000
+30,Roi,Zuann,2,8.520000

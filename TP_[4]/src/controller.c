@@ -348,12 +348,10 @@ int controller_editAlumnos(LinkedList* pArrayListAlumnos)
 					break;
 					case 3:
 						utn_getNumero(&materia, "\nENTER SUBJECT (1-INGLES I,2-LABORATORIO I,3-PROGRAMACION I,4-SPD): ", "\n[INVALID VALUE, TRY AGAIN.] ", 1, 4, 50);
-						getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO CHANGE THE STUDENT'S FLIGHT CODE (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN (S/N): ");
+						getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO CHANGE THE STUDENT'S SUBJECT (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN (S/N): ");
 						if(confirmation=='s')
 						{
-							printf("\nPASSENGER FLIGHT CODE HAS BEEN CHANGED FROM %d TO ",materia);
-							Alumno_setMateria(pAuxAlumno, materia);
-							printf("%d\n",materia);
+							printf("\nTHE STUDENT'S SUBJECT HAS BEEN CHANGED! ");
 						}
 						else
 						{
@@ -363,7 +361,8 @@ int controller_editAlumnos(LinkedList* pArrayListAlumnos)
 						system("Pause");
 					break;
 					case 4:
-						printf("\nEXIT MENU MODIFICATIONS.....");
+						printf("\nEXIT MENU MODIFICATIONS.....\n");
+						todoOk=1;
 						system("Pause");
 					break;
 				}

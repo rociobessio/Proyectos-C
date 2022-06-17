@@ -65,7 +65,6 @@ static Node* getNode(LinkedList* this, int nodeIndex)
 		{
 			pNodo = pNodo->pNextNode;
 		}
-
 	}
 
     return pNodo;
