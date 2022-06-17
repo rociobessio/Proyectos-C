@@ -301,6 +301,7 @@ int controller_editAlumnos(LinkedList* pArrayListAlumnos)
 		else
 		{
 			pAuxAlumno = ll_get(pArrayListAlumnos, index);
+
 			if(pAuxAlumno!=NULL)//VALIDO PORQUE PUEDE DEVOLVER NULL
 			{
 				printf("\n\n");
@@ -384,6 +385,8 @@ int controller_removeAlumno(LinkedList* pArrayListAlumno)
 	int obtainedLegajo;
 	char confirmation;
 	int maxLegajo;
+	int indexToDelete;
+
 	obtainLegajo(&maxLegajo);
 	if(pArrayListAlumno!=NULL)
 	{
@@ -397,6 +400,9 @@ int controller_removeAlumno(LinkedList* pArrayListAlumno)
 		index = Alumno_searchForLegajo(pArrayListAlumno, legajoAlumno);//VERIFYING THAT THE ID EXISTS AND WHERE IT IS LOCATED
 
 		pAlumno = ll_get(pArrayListAlumno, index); //GET THE ELEMENT FROM THE LIST
+
+		indexToDelete = ll_indexOf(pArrayListAlumno, pAlumno);//me devuelve la primer ocurrencia de ese elemento
+
 		if(pAlumno!=NULL)//ME PUEDE DEVOLVER NULL
 		{
 			Alumno_getLegajo(pAlumno, &obtainedLegajo); //GET THE ID
@@ -413,7 +419,7 @@ int controller_removeAlumno(LinkedList* pArrayListAlumno)
 				getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO REMOVE THE PASSENGER FROM THE LIST (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN PRESSING (S/N): ");
 				if(confirmation=='s')
 				{
-					ll_remove(pArrayListAlumno, index);//PASAR INDICE A ll_remove
+					ll_remove(pArrayListAlumno, indexToDelete);//paso esa primer ocurrencia para eliminarla
 					if(pArrayListAlumno!=NULL)//ME PUEDE DEVOLVER NULL
 					{
 						Alumno_delete(pAlumno);
