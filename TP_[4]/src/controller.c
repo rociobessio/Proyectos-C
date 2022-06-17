@@ -226,7 +226,7 @@ int controller_ListAlumnos(LinkedList* pArrayListAlumno)
 	eAlumno *pAuxAlumno;
 	int sizeOf;
 
-	if(pArrayListAlumno==NULL)
+	if(ll_isEmpty(pArrayListAlumno)==1)//si devuelve 1 no hay students en la lista
 	{
 		printf("\nNO STUDENTS REGISTERED!");
 	}
