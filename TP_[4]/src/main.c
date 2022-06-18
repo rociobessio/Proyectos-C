@@ -31,7 +31,27 @@
 
 #define STATE_FILE_OPEN 1
 #define STATE_FILE_CLOSED 0
-
+/****************************************************
+	LinkedList utilizadas:
+	- ll_newLinkedList
+	- ll_len
+	- ll_add
+	- ll_get
+	- ll_set
+	- ll_remove
+	- ll_clear
+	- ll_deleteLinkedList
+	- ll_indexOf
+	- ll_isEmpty
+	- ll_push
+	- ll_pop
+	- ll_contains
+	- ll_containsAll
+	- ll_subList
+	- ll_clone
+	- ll_sort
+	- ll_filter
+ ****************************************************/
 int menu()
 {
 	int opcion;
@@ -141,11 +161,12 @@ int main(void)
     					system("Pause");
     				break;
     				case 3://ANIADIR UN ALUMNO
-    					limpioPantalla();
+    				limpioPantalla();
     					pFunction("\nYOU NEED TO LOAD THE FILE FIRST!",
     							"\nTHERE WAS AN ERROR WHILE TRYING TO ADD THE STUDENT! ",
     							"\nYOU HAVE EXITED THE ADD!",
     							&fileState, STATE_FILE_CLOSED, listaAlumnos, controller_addAlumno);
+
     					system("Pause");
     				break;
     				case 4://EDITAR UN ALUMNO
@@ -186,12 +207,11 @@ int main(void)
     						ll_deleteLinkedList(clonarListaAlumnos);
     					}
     					else
-    					{
-							getValidStringAlpha("\nENTER THE FILE'S NAME: ", "\n[INVALID VALUES, TRY AGAIN]\n", path, 3, 15);
-    						controller_ListAlumnos(clonarListaAlumnos);
-    						printf("\nTHE LIST HAS BEEN CLONED AND SAVED SUCCESFULLY!\n");
-    						controller_saveAsText(path, clonarListaAlumnos);
-    						flag=1;
+    					{	getValidStringAlpha("\nENTER THE FILE'S NAME: ", "\n[INVALID VALUES, TRY AGAIN]\n", path, 3, 15);
+        					controller_ListAlumnos(clonarListaAlumnos);
+        					printf("\nTHE LIST HAS BEEN CLONED AND SAVED SUCCESFULLY!\n");
+        					controller_saveAsText(path, clonarListaAlumnos);
+        					flag=1;
     					}
     					system("Pause");
     				break;

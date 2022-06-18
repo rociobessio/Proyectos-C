@@ -8,7 +8,7 @@
 #include "Alumno.h"
 #include "parser.h"
 
-
+//cargar archivos
 int saveAsBinary_LastLegajo(FILE* pFile, LinkedList* pArrayListAlumnos,int* maxLegajo)
 {
     eAlumno* Alumno;
@@ -161,7 +161,7 @@ int upgradeLegajo(int legajo)
 	return todoOk;
 }
 
-
+//alumnos
 int controller_ListAlumnos(LinkedList* pArrayListAlumno)
 {
 	int todoOk = 0;
@@ -514,7 +514,7 @@ int controller_removeAlumno(LinkedList* pArrayListAlumno)
 	}
     return todoOk;
 }
-
+//sort
 int controller_showOptionMenuSort()
 {
 	int opcion;
@@ -601,7 +601,7 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListAlumnos)
     return todoOk;
 }
 
-
+//guardar archivo
 int controller_saveAsText(char* path , LinkedList* pArrayListAlumnos)
 {
 	int retorno=-1;
@@ -648,7 +648,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListAlumnos)
 	return retorno;
 }
 
-
+//filtrados
 int controller_showOptionMenuFilter()
 {
 	int opcion;
@@ -658,7 +658,7 @@ int controller_showOptionMenuFilter()
 	printf("___________________________________________________|\n");
 	printf("_______________________________");
 	printf("\n|1)BY SUBJECT LABORATORIO      |\n|"
-			"2)BY PROMEDY                  |\n|"
+			"2)BY PROMEDY>=6               |\n|"
 			"3)BY SPD & PROMEDY>=6         |\n");
 	printf("|______________________________|");
 	utn_getNumero(&opcion, "\nENTER AN OPTION: ", "\n[INVALID VALUE, TRY AGAIN] ", 1, 3, 10);
@@ -744,6 +744,7 @@ int controller_FilterAlumnos(LinkedList* pArrayListAlumnos)
 	return todoOk;
 }
 
+//usos del linked
 int controller_createANewSublist(LinkedList* pArrayListAlumnos)
 {
 	int todoOk=0;
@@ -873,5 +874,3 @@ int controller_MakeAPush(LinkedList* pArrayListAlumnos)
 	}
     return todoOk;
 }
-
-

@@ -181,4 +181,13 @@ int controller_createANewSublist(LinkedList* pArrayListAlumnos);
  */
 int controller_MakeAPush(LinkedList* pArrayListAlumnos);
 
+/**
+ * @fn int controller_replaceStudent(eAlumno*, LinkedList*)
+ * @brief REEMPLAZA A UN ALUMNO EN EL INDICE INDICADO
+ *
+ * @param pAlumnoReplace
+ * @param pArrayListAlumnos
+ * @return
+ */
 int controller_replaceStudent(eAlumno *pAlumnoReplace,LinkedList* pArrayListAlumnos);
+
