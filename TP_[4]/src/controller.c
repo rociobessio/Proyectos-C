@@ -161,63 +161,6 @@ int upgradeLegajo(int legajo)
 	return todoOk;
 }
 
-int controller_addAlumno(LinkedList *pArrayListAlumnos)
-{
-	int todoOk=0;
-
-	eAlumno *pAuxAlumno;
-	pAuxAlumno = Alumno_new();
-	char confirmation;
-
-	//AUXILIARIES
-	int auxLegajo;
-	char auxName[50];
-	char auxLastName[50];
-	int materia;
-	float promedio;
-
-	if(pArrayListAlumnos!=NULL)
-	{
-		printf("\n__________________________________________________________________________");
-		printf("\n                                                                          |");
-		printf("\n                           STUDENT ADD                                    |\n");
-		printf("__________________________________________________________________________|");
-		obtainLegajo(&auxLegajo);
-		utn_getNombre(auxName, 48, "\nENTER STUDENT NAME'S: ", "\n[ERROR ONLY LETTERS, A MAX OF 48 CHARACTERS & NO SPACES.] ", 50);
-		convertFirstLetterStringUpper(auxName);
-
-		utn_getNombre(auxLastName, 48, "\nENTER STUDENT'S LAST NAME: ", "\n[ERROR ONLY LETTERS, A MAX OF 48 CHARACTERS & NO SPACES.]. ", 50);
-		convertFirstLetterStringUpper(auxLastName);
-
-		utn_getNumero(&materia, "\nENTER SUBJECT (1-INGLES I,2-LABORATORIO I,3-PROGRAMACION I,4-SPD): ", "\n[INVALID VALUE, TRY AGAIN.] ", 1, 4, 50);
-
-		utn_getNumeroFlotante(&promedio, "\nENTER THE PROMEDY OF THE STUDENT (1-10): ", "\n[INVALID VALUE, TRY AGAIN.]", 1, 10, 50);
-
-		getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO ADD THE STUDENT (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN (S/N): ");
-		if(confirmation=='s')
-		{
-			if(pAuxAlumno!=NULL)//UPDATE VALUES
-			{
-				Alumno_setLegajo(pAuxAlumno, auxLegajo);
-				Alumno_setNombre(pAuxAlumno, auxName);
-				Alumno_setApellido(pAuxAlumno, auxLastName);
-				Alumno_setPromedio(pAuxAlumno, promedio);
-				Alumno_setMateria(pAuxAlumno, materia);
-				ll_add(pArrayListAlumnos, pAuxAlumno);//ADDS THEM TO THE LIST
-				upgradeLegajo(auxLegajo);//UPGRADE STUDENT ID
-				todoOk=1;
-			}
-		}
-		else
-		{
-			printf("\nTHE ADDITION HAS BEEN CANCELLED!\n");
-			todoOk=1;
-		}
-
-	}
-    return todoOk;
-}
-
 
 int controller_ListAlumnos(LinkedList* pArrayListAlumno)
 {
@@ -251,6 +194,133 @@ int controller_ListAlumnos(LinkedList* pArrayListAlumno)
 	}
     return todoOk;
 }
+
+
+int controller_replaceStudent(eAlumno *pAlumnoReplace,LinkedList* pArrayListAlumnos)
+{
+	int todoOk = 0;
+
+	int index;
+	int maxId;
+	int idSearch;
+
+	int indexToDelete;
+
+	eAlumno* pReplace;
+	eAlumno* pAux;
+
+	if(pArrayListAlumnos!=NULL && pAlumnoReplace!=NULL)
+	{
+		obtainLegajo(&maxId);
+		printf("\n__________________________________________________________________________");
+		printf("\n                                                                          |");
+		printf("\n                        STUDENT REPLACEMENT                               |\n");
+		printf("__________________________________________________________________________|");
+		controller_ListAlumnos(pArrayListAlumnos);
+		utn_getNumero(&idSearch, "\nENTER STUDENT ID THAT YOU WANT TO REPLACE: ", "\n[INVALID VALUES, PLEASE TRY AGAIN.]", 1, (maxId-1), 50);
+
+		index = Alumno_searchForLegajo(pArrayListAlumnos, idSearch);
+
+		pReplace = ll_get(pArrayListAlumnos, index); //GET THE ELEMENT FROM THE LIST
+
+		//obtengo el indice del alumno que me pasaron y que va a pisar a otro
+		indexToDelete = ll_indexOf(pArrayListAlumnos, pAlumnoReplace);
+
+		if(ll_contains(pArrayListAlumnos, pReplace)==0)//pregunto si esa id a pisar esta en la lista
+		{
+			printf("\n[THE LIST DOESN'T CONTAINS A STUDENT WITH ID Nº%d]",idSearch);
+			todoOk=1;
+		}
+		else
+		{
+			if(pReplace!=NULL)//VALIDO PORQUE PUEDE DEVOLVER NULL
+			{
+				pAux = pAlumnoReplace;//uso un auxiliar
+				ll_set(pArrayListAlumnos, index, pAux);//piso con el auxiliar ese indice
+				ll_pop(pArrayListAlumnos, indexToDelete);//elimino la posicion anterior de lo que me pasaron para que no se duplique
+				printf("\nTHE STUDENT HAS BEEN REPLACED!");
+				todoOk=1;
+			}
+		}
+	}
+
+	return todoOk;
+}
+
+
+int controller_addAlumno(LinkedList *pArrayListAlumnos)
+{
+	int todoOk=0;
+
+	eAlumno *pAuxAlumno;
+	pAuxAlumno = Alumno_new();
+	char confirmation;
+
+	//AUXILIARIES
+	int auxLegajo;
+	char auxName[50];
+	char auxLastName[50];
+	int materia;
+	float promedio;
+
+	int opcion;
+
+	if(pArrayListAlumnos!=NULL)
+	{
+		printf("\n__________________________________________________________________________");
+		printf("\n                                                                          |");
+		printf("\n                           STUDENT ADD                                    |\n");
+		printf("__________________________________________________________________________|");
+		obtainLegajo(&auxLegajo);
+		utn_getNombre(auxName, 48, "\nENTER STUDENT NAME'S: ", "\n[ERROR ONLY LETTERS, A MAX OF 48 CHARACTERS & NO SPACES.] ", 50);
+		convertFirstLetterStringUpper(auxName);
+
+		utn_getNombre(auxLastName, 48, "\nENTER STUDENT'S LAST NAME: ", "\n[ERROR ONLY LETTERS, A MAX OF 48 CHARACTERS & NO SPACES.]. ", 50);
+		convertFirstLetterStringUpper(auxLastName);
+
+		utn_getNumero(&materia, "\nENTER SUBJECT (1-INGLES I,2-LABORATORIO I,3-PROGRAMACION I,4-SPD): ", "\n[INVALID VALUE, TRY AGAIN.] ", 1, 4, 50);
+
+		utn_getNumeroFlotante(&promedio, "\nENTER THE PROMEDY OF THE STUDENT (1-10): ", "\n[INVALID VALUE, TRY AGAIN.]", 1, 10, 50);
+		utn_getNumero(&opcion, "\nDO YOU WANT TO REPLACE A STUDENT (1) OR ADD A NEW ONE TO THE LIST (2): ", "\n[INVALID VALUE, TRY AGAIN.]", 1, 2, 12);
+		if(opcion==2)
+		{
+			getUserConfirmation(&confirmation, "\nDO YOU REALLY WANT TO ADD THE STUDENT (S/N)?: ", "\nINVALID VALUE, PLEASE TRY AGAIN (S/N): ");
+			if(confirmation=='s')
+			{
+				if(pAuxAlumno!=NULL)//UPDATE VALUES
+				{
+					Alumno_setLegajo(pAuxAlumno, auxLegajo);
+					Alumno_setNombre(pAuxAlumno, auxName);
+					Alumno_setApellido(pAuxAlumno, auxLastName);
+					Alumno_setPromedio(pAuxAlumno, promedio);
+					Alumno_setMateria(pAuxAlumno, materia);
+					ll_add(pArrayListAlumnos, pAuxAlumno);//ADDS THEM TO THE LIST
+					upgradeLegajo(auxLegajo);//UPGRADE STUDENT ID
+					todoOk=1;
+				}
+			}
+			else
+			{
+				printf("\nTHE ADDITION HAS BEEN CANCELLED!\n");
+				todoOk=1;
+			}
+		}
+		else
+		{
+			Alumno_setLegajo(pAuxAlumno, auxLegajo);
+			Alumno_setNombre(pAuxAlumno, auxName);
+			Alumno_setApellido(pAuxAlumno, auxLastName);
+			Alumno_setPromedio(pAuxAlumno, promedio);
+			Alumno_setMateria(pAuxAlumno, materia);
+			upgradeLegajo(auxLegajo);//UPGRADE STUDENT ID
+			ll_add(pArrayListAlumnos, pAuxAlumno);//ADDS THEM TO THE LIST
+			controller_replaceStudent(pAuxAlumno, pArrayListAlumnos);
+			todoOk=1;
+		}
+	}
+    return todoOk;
+}
+
 
 int controller_selectMenuOption()//USER CAN MODIFY EVERYTHING BESIDES PROMEDY!
 {
@@ -692,6 +762,10 @@ int controller_createANewSublist(LinkedList* pArrayListAlumnos)
 
 	if(pArrayListAlumnos!=NULL)
 	{
+		printf("\n__________________________________________________________________________");
+		printf("\n                                                                          |");
+		printf("\n                        CREATE A NEW SUBLIST                              |\n");
+		printf("__________________________________________________________________________|");
 		controller_ListAlumnos(pArrayListAlumnos);
 		obtainLegajo(&maxId);
 		utn_getNumero(&idSearchFrom, "\nPLEASE ENTER FROM WHERE YOU WANT TO CREATE A SUBLIST: ", "\n[INVALID VALUE, TRY AGAIN]: ", 1,(maxId-1) , 12);
@@ -759,6 +833,10 @@ int controller_MakeAPush(LinkedList* pArrayListAlumnos)
 	if(pArrayListAlumnos!=NULL)
 	{
 		obtainLegajo(&maxId);
+		printf("\n__________________________________________________________________________");
+		printf("\n                                                                          |");
+		printf("\n                        MAKE A PUSH                                       |\n");
+		printf("__________________________________________________________________________|");
 		controller_ListAlumnos(pArrayListAlumnos);
 		utn_getNumero(&idSearch, "\nENTER STUDENT ID THAT YOU WANT TO MOVE: ", "\n[INVALID VALUES, PLEASE TRY AGAIN.]", 1, (maxId-1), 50);
 		utn_getNumero(&indexToPush, "\nENTER THE INDEX IDs WHERE TO PUSH: ", "\n[INVALID VALUES, PLEASE TRY AGAIN.]", 1, (maxId-1), 50);
@@ -795,3 +873,5 @@ int controller_MakeAPush(LinkedList* pArrayListAlumnos)
 	}
     return todoOk;
 }
+
+

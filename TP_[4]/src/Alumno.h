@@ -284,4 +284,7 @@ int filterBySPD(void* pElement);
  */
 int filterByPromedio(void* pElement);
 
+
+
+
 #endif /* ALUMNO_H_ */

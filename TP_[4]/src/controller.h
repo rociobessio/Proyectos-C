@@ -180,3 +180,5 @@ int controller_createANewSublist(LinkedList* pArrayListAlumnos);
  * @return
  */
 int controller_MakeAPush(LinkedList* pArrayListAlumnos);
+
+int controller_replaceStudent(eAlumno *pAlumnoReplace,LinkedList* pArrayListAlumnos);
