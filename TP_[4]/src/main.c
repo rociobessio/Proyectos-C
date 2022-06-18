@@ -201,18 +201,15 @@ int main(void)
     				break;
     				case 8://CLONAR LA LISTA
     					clonarListaAlumnos = ll_clone(listaAlumnos);
-    					if(clonarListaAlumnos==NULL)
-    					{
+    					if(clonarListaAlumnos==NULL){
     						printf("\nTHERE WAS AN ERROR WHILE TRYING TO CLONE THE LIST!");
-    						ll_deleteLinkedList(clonarListaAlumnos);
+    						   ll_deleteLinkedList(clonarListaAlumnos);
     					}
-    					else
-    					{	getValidStringAlpha("\nENTER THE FILE'S NAME: ", "\n[INVALID VALUES, TRY AGAIN]\n", path, 3, 15);
-        					controller_ListAlumnos(clonarListaAlumnos);
-        					printf("\nTHE LIST HAS BEEN CLONED AND SAVED SUCCESFULLY!\n");
-        					controller_saveAsText(path, clonarListaAlumnos);
-        					flag=1;
-    					}
+    					getValidStringAlpha("\nENTER THE FILE'S NAME: ", "\n[INVALID VALUES, TRY AGAIN]\n", path, 3, 15);
+        				controller_ListAlumnos(clonarListaAlumnos);
+        				printf("\nTHE LIST HAS BEEN CLONED AND SAVED SUCCESFULLY!\n");
+        				controller_saveAsText(path, clonarListaAlumnos);
+        				flag=1;
     					system("Pause");
     				break;
     				case 9://FILTRAR A LOS ALUMNOS
