@@ -340,7 +340,7 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)//COMPARO Y ME FIJO SI EST
     	sizeThis2 = ll_len(this2);
     	for(int i=0;i<sizeThis2;i++)//recorro con el size de la segunda lista
     	{
-    		if(!ll_contains(this, ll_get(this, i)))
+    		if(!ll_contains(this, ll_get(this2, i)))
     		{
     			returnAux = 0;
     			break;//rompo xq ya comprobe que no esta contenido

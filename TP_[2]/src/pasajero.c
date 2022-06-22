@@ -77,8 +77,6 @@ int removePassenger(ePassenger list[],int len, int id,eStatusFlight status[],int
 		printf("\n                                                            |");
 		printf("\n                BAJA PASSENGERS                             |\n");
 		printf("____________________________________________________________|\n");
-		printf("\n\n");
-		printf("\n\n");
 		showMessage("----------------------------------------------------------------------------------------------------------------------------------|");
 		showMessage("						  ***LISTADO DE PASAJEROS***                                                      | ");
 		showMessage("|---------------------------------------------------------------------------------------------------------------------------------|");
@@ -93,7 +91,7 @@ int removePassenger(ePassenger list[],int len, int id,eStatusFlight status[],int
 		{
 			if(pIndex == -1)
 			{
-				showMessage("\n	**PASAJERO NO ENCONTRADO DENTRO DEL SISTEMA**\n");
+				showMessage("\nPASAJERO NO ENCONTRADO DENTRO DEL SISTEMA!!\n");
 			}
 			else
 			{
@@ -105,22 +103,22 @@ int removePassenger(ePassenger list[],int len, int id,eStatusFlight status[],int
 				showOnePassenger(list[pIndex],status,tam_status,typePassenger,tamPassenger);
 				showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
 
-				getUserConfirmation(&opcion, "\n**DESEA ELIMINAR AL EMPLEADO DEL SISTEMA?**\n", "\n**ERROR REINGRESE:**\n");
+				getUserConfirmation(&opcion, "\nDESEA ELIMINAR AL EMPLEADO DEL SISTEMA?\n", "\nERROR REINGRESE (S/N): ");
 				if(opcion !='s')
 				{
-					showMessage("\n**BAJA CANCELADA**\n");
+					showMessage("\nBAJA CANCELADA POR EL USUARIO!!\n");
 				}
 				else
 				{
 					list[pIndex].isEmpty =1; //CAMBIO EL VALOR A VACIO
-					showMessage("\n**BAJA EXITOSA**\n");
+					showMessage("\nBAJA EXITOSA!!!\n");
 					todoOk =1;
 				}
 			}
 		}
 		else
 		{
-			showMessage("\n	**OCURRIO UN ERROR INESPERADO CON EL SISTEMA AL BUSCAR AL PASAJERO**\n");
+			showMessage("\nOCURRIO UN ERROR INESPERADO CON EL SISTEMA AL BUSCAR AL PASAJERO!!\n");
 		}
 	}
 
@@ -155,31 +153,28 @@ int addPassenger(ePassenger* list,int len,char name[],char lastName[],float pric
 
 			if(indice == -1)
 			{
-				printf("\n**¡NO HAY MAS ESPACIO EN EL SISTEMA!**\n");
+				printf("\n¡NO HAY MAS ESPACIO EN EL SISTEMA!\n");
 
 			}
 			else
 			{
 				list[indice].id = id;
 
-				getValidString("\nINGRESE EL NOMBRE:\n",
-								"\nRECUERDE, SOLO LETRAS:\n",
-								"\nEXCEDIO EL LIMITE:\n",auxName, 3,51);
+				getValidString("\nINGRESE EL NOMBRE: ",
+								"\nRECUERDE, SOLO LETRAS: ",
+								"\nEXCEDIO EL LIMITE: ",auxName, 3,51);
+				strupr(auxName);
 				strcpy(list[indice].name,auxName);
-
 
 				getValidString("\nINGRESE EL APELLIDO:\n",
 								"\nRECUERDE, SOLO LETRAS:\n",
 								"\nEXCEDIO EL LIMITE:\n",auxLastName, 3,51);
+				strupr(auxLastName);
 				strcpy(list[indice].lastName,auxLastName);
-
 
 				getFloatValidation( &auxFloatPrice,"\nINGRESE EL PRECIO DEL VUELO ($10000 - $700000000): \n",
 									"\nVALORES ENTRE ($10000 - $700000000), REINGRESE: \n", 10000, 700000000);
 				list[indice].price = auxFloatPrice;
-
-
-
 
 				getValidStringAlpha("\nINGRESE EL CODIGO ALFANUMERICO DE VUELO DE 9 DIGITOS: ",
 									"\nERROR INVALIDO, REINGRESE UN CODIGO ALFANUMERICO DE 9 DIGITOS: ", &auxFlycode, 9, 9);
@@ -195,7 +190,7 @@ int addPassenger(ePassenger* list,int len,char name[],char lastName[],float pric
 				utn_getNumero(&statusFlight, "INGRESE EL ESTADO DEL VUELO: ", "ERROR REINGRESE UN VALOR VALIDO. ", 1, 3, 100);
 				list[indice].statusFlight = statusFlight;
 
-				list[indice].isEmpty = 0;	//CON LA VUELTA Y CARGA PASA A ESTAR OCUPADO
+				list[indice].isEmpty = 0;//CON LA VUELTA Y CARGA PASA A ESTAR OCUPADO
 
 				showMessage("----------------------------------------------------------------------------------------------------------------------------------|");
 				showMessage("						  ***LISTADO DE PASAJEROS***                                                      | ");
@@ -204,19 +199,16 @@ int addPassenger(ePassenger* list,int len,char name[],char lastName[],float pric
 				printf("|---------------------------------------------------------------------------------------------------------------------------------|\n");
 				showOnePassenger(list[indice],status,tam_status,typePassenger2,tamPassenger);
 				showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
-				showMessage("\n**DESEA DAR DE ALTA AL PASAJERO?(S/N): ");
-				printf("\nOpcion: ");
-				opcion=toupper(opcion);
-				scanf("%c",&opcion);
-				if(opcion!='s' && opcion!='S')
+				getUserConfirmation(&opcion, "\nDESEA DAR DE ALTA AL PASAJERO (S/N)?: ", "\nVALOR INVALIDO, REINGRESE (S/N): ");
+				if(opcion!='s')
 				{
-					showMessage("\n***OPERACION CANCELADA***");
+					showMessage("\nALTA CANCELADA POR EL USUARIO!");
 					id--;
 					list[indice].isEmpty = 1;
 				}
 				else
 				{
-					showMessage("\n**¡CARGA EXITOSA!**\n");
+					showMessage("\n¡CARGA EXITOSA!\n");
 				}
 
 				todoOk = 1;
@@ -267,9 +259,12 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 {
 	//ePassenger pasajeroModificacion;
 	int todoOk = 0;
+
 	int idIngresada;
 	int pIndex;
 	char opcion;
+	int opcionNum;
+
 	char auxCadena [51];
 	float auxFloat;
 	int auxTypePassenger;
@@ -280,7 +275,6 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 		printf("\n                                                            |");
 		printf("\n                MODIFICACION PASSENGERS                     |\n");
 		printf("____________________________________________________________|\n");
-		printf("\n\n");
 		showMessage("----------------------------------------------------------------------------------------------------------------------------------|");
 		showMessage("						  ***LISTADO DE PASAJEROS***                                                      | ");
 		showMessage("|---------------------------------------------------------------------------------------------------------------------------------|");
@@ -294,7 +288,7 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 		{
 			if(pIndex == -1)
 			{
-				showMessage("\nPASAJERO NO ENCONTRADO DENTRO DEL SISTEMA\n");
+				showMessage("\nPASAJERO NO ENCONTRADO DENTRO DEL SISTEMA!!\n");
 			}
 			else
 			{
@@ -307,25 +301,23 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 				showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
 
 				getUserConfirmation(&opcion, "\nDESEA MODIFICAR A UN PASAJERO (S/N)?  ", "\nERROR REINGRESE (S/N): ");
-				printf("\n\n");
 				if(opcion =='s')
 				{
 					printf("____________________________");
-					printf("\n|A)NOMBRE                  |\n|"
-							"B)APELLIDO                |\n|"
-							"C)PRECIO DE VUELO         |\n|"
-							"D)CODIGO DE VUELO         |\n|"
-							"E)TIPO DE PASAJERO        |\n|"
-							"6)SALIR                   |\n");
+					printf("\n|1)NOMBRE                  |\n|"
+							"2)APELLIDO                |\n|"
+							"3)PRECIO DE VUELO         |\n|"
+							"4)CODIGO DE VUELO         |\n|"
+							"5)TIPO DE PASAJERO        |\n");
 					printf("|__________________________|");
-					getUserMenuOption(&opcion, "\nINGRESE QUE DESEA MODIFICAR: ",
-												"\nERROR, INGRESE UN VALOR VALIDO: ");
-					switch(opcion)
+					utn_getNumero(&opcionNum, "\nINGRESE QUE DESEA MODIFICAR: ", "\nVALOR INVALIDO, REINGRESE: ", 1, 6, 10);
+					switch(opcionNum)
 					{
-						case 'A':
+						case 1:
 							getValidString("\nINGRESE EL NOMBRE:\n",
 											"\nRECUERDE, SOLO LETRAS:\n",
 											"\nEXCEDIO EL LIMITE:\n",auxCadena, 3,51);
+							strupr(auxCadena);
 							getUserConfirmation(&opcion, "\nDESEA MODIFICAR EL NOMBRE DEL PASAJERO? S/N\n","\nERROR REINGRESE");
 							if(opcion=='s')
 							{
@@ -337,10 +329,11 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 								showMessage("\n**MODIFICACION CANCELADA**\n");
 							}
 						break;
-						case 'B':
+						case 2:
 							getValidString("\nINGRESE EL APELLIDO:\n",
 											"\nRECUERDE, SOLO LETRAS:\n",
 											"\nEXCEDIO EL LIMITE:\n",auxCadena, 3,51);
+							strupr(auxCadena);
 							getUserConfirmation(&opcion, "\nDESEA MODIFICAR EL APELLIDO DEL PASAJERO? S/N\n","\nERROR REINGRESE");
 							if(opcion=='s')
 							{
@@ -352,7 +345,7 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 								showMessage("\n**MODIFICACION CANCELADA**\n");
 							}
 						break;
-						case 'C':
+						case 3:
 							getFloatValidation( &auxFloat,
 												"\nINGRESE EL PRECIO DEL VUELO ($10000 - $700000000): \n",
 												"\nLIMITE DE ($10000 - $700000000), REINGRESE : \n", 10000, 700000000);
@@ -367,7 +360,7 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 								showMessage("\n			**MODIFICACION CANCELADA**\n");
 							}
 						break;
-						case 'D':
+						case 4:
 							getValidStringAlpha("\nINGRESE EL CODIGO ALFANUMERICO DE VUELO DE 9 DIGITOS: ",
 												"\n**ERROR INVALIDO, REINGRESE UN CODIGO ALFANUMERICO DE 9 DIGITOS: ", auxCadena, 9, 9);
 							strcpy(list[pIndex].flycode,auxCadena);
@@ -381,7 +374,7 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 								showMessage("\n**MODIFICACION CANCELADA**\n");
 							}
 						break;
-						case 'E':
+						case 5:
 							listarTypePassenger(typePassenger2, tamPassenger);
 							utn_getNumero(&auxTypePassenger, "INGRESE EL TIPO DE PASAJERO: ", "ERROR, REINGRESE UN VALOR VALIDO. ", 1, 4, 100);
 							list[pIndex].typePassenger = auxTypePassenger;
@@ -395,9 +388,7 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 								showMessage("\n**MODIFICACION CANCELADA**\n");
 							}
 						break;
-
 					}
-
 				}
 				else
 				{
@@ -408,13 +399,13 @@ int modifyPassenger(ePassenger list[], int len,eStatusFlight status[], int tam_s
 		}
 		else
 		{
-			showMessage("\n**OCURRIO UN ERROR INESPERADO CON EL SISTEMA AL BUSCAR AL PASAJERO**\n");
+			showMessage("\nOCURRIO UN ERROR INESPERADO CON EL SISTEMA AL BUSCAR AL PASAJERO!!\n");
 		}
 	}
 return todoOk;
 }
 
-
+/*
 int sortPassengers(ePassenger* list, int len, int order)
 {
 	int todoOk = 1;
@@ -433,6 +424,37 @@ int sortPassengers(ePassenger* list, int len, int order)
 						|| (list[i].typePassenger != list[j].typePassenger && list[i].typePassenger > list[j].typePassenger&& order ==1)
 						||(list[i].typePassenger == list[j].typePassenger && strcmp(list[i].lastName,list[j].lastName)<0 && order ==0)
 						||(list[i].typePassenger != list[j].typePassenger && list[i].typePassenger < list[j].typePassenger&& order ==0))
+					{
+						auxiPasajero = list[i];
+						list[i] = list[j];
+						list[j] = auxiPasajero;
+					}
+				}
+			}
+		}
+	}
+	return todoOk;
+}
+*/
+
+int sortPassengers(ePassenger* list, int len, int order)//SI APELLIDO COINCIDE ORDENAR POR TIPO PASAJERO
+{
+	int todoOk = 1;
+
+	ePassenger auxiPasajero;
+
+	if(list!=NULL && len>0)
+	{
+		for(int i = 0; i<len-1;i++)
+		{
+			for(int j = i+1;j<len;j++)
+			{
+				if(!list[i].isEmpty && !list[j].isEmpty)
+				{
+					if((strcmp(list[i].lastName,list[j].lastName)==0 && (list[i].typePassenger > list[j].typePassenger) && order ==1)
+						|| (strcmp(list[i].lastName,list[j].lastName)>0 &&  order == 1)
+						|| (strcmp(list[i].lastName,list[j].lastName)==0 && list[i].typePassenger < list[j].typePassenger && order ==0)
+						|| (strcmp(list[i].lastName,list[j].lastName)<0  && order ==0))
 					{
 						auxiPasajero = list[i];
 						list[i] = list[j];
@@ -466,10 +488,7 @@ int informPrice(ePassenger list[],int len,float* acumPrecio,int* cantPassengers,
 				cantPasajeros++;
 				acumPasaje=list[i].price  + acumPasaje;
 			}
-
-
 		}
-
 
 		promedio=(float)(acumPasaje/cantPasajeros);
 		for(int i=0; i<len;i++)
@@ -503,7 +522,7 @@ int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam
 			{
 				if(!list[i].isEmpty && !list[j].isEmpty )
 				{
-					if(order==1)//&& status[i].id == 1 && status[j].id == 1
+					if(order==1)
 					{
 						if(strcmp(list[i].flycode,list[j].flycode)>0 )
 						{
@@ -512,7 +531,7 @@ int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam
 							list[j]= auxPassanger;
 						}
 					}
-					else if(order==0)//
+					else if(order==0)
 					{
 						if(strcmp(list[i].flycode,list[j].flycode)<0)
 						{
@@ -538,9 +557,6 @@ int sortPassengersByCode(ePassenger* list,int len,eStatusFlight status[],int tam
 			}
 		}
 		showMessage("----------------------------------------------------------------------------------------------------------------------------------|\n");
-
-
-
 
 		todoOk=0;
 	}
@@ -636,16 +652,16 @@ int altaForzadaPassengers(ePassenger* list, int len, int cant,int* id)
 {
 	ePassenger impostores[] =
 	   {
-		       {0, "Esteban", "Quito",100000,"AhJil14567",1,1,0},
-		        {0, "Carla", "Alonso",120000,"Skml89Plm",2,2,0},
-		        {0, "Maria","Valenzuela", 140000,"pL23581da",3,3,0},
-		        {0, "Jose", "Acunia",120000,"69AmneIsa",2,1,0},
-		        {0, "Lucas", "Daniel", 110000,"89Sfew122",4,2,0},
-		        {0, "Paula", "Travolta", 130000,"hjrwSa219",1,1,0},
-		        {0, "Claudia", "Mussio", 120000,"5afew21fp",2,3,0},
-		        {0, "Cristina", "Escalante", 150000,"riedon213",3,2,0},
-		        {0, "Renata", "Mandi", 120000,"sjfF25pa5",1,2,0},
-		        {0, "Benicio", "Polka", 110000,"2pol12a5",4,1,0}
+		       {0, "ESTEBAN", "QUITO",100000,"AhJil14567",1,1,0},
+		        {0, "CARLA", "ALONSO",120000,"Skml89Plm",2,2,0},
+		        {0, "MARIA","ALONSO", 140000,"pL23581da",3,3,0},
+		        {0, "JOSE", "ACUNIA",120000,"69AmneIsa",2,1,0},
+		        {0, "LUCAS", "DANIEL", 110000,"89Sfew122",4,2,0},
+		        {0, "PAULA", "TRAVOLTA", 130000,"hjrwSa219",1,1,0},
+		        {0, "CLAUDIA", "MUSSIO", 120000,"5afew21fp",2,3,0},
+		        {0, "CRISTINA", "ESCALANTE", 150000,"riedon213",3,2,0},
+		        {0, "RENATA", "MANDI", 120000,"sjfF25pa5",1,2,0},
+		        {0, "BENICIO", "POLKA", 110000,"2pol12a5",4,1,0}
 	    };
 
 	int todoOk = 0;

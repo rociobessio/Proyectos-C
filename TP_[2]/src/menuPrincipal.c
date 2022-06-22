@@ -22,6 +22,7 @@ void menuPrincipal()
 	int siguienteId=1;	//ID GENERADA
 
 	int banderaHarcode = 1;
+	char confirma;
 
 	ePassenger list[TAM];
 	ePassenger pasajeroIngresado;
@@ -42,9 +43,6 @@ void menuPrincipal()
 
 
 	initPassanger(list, TAM); //LOS INICIALIZO
-
-
-
 
 	do
 	{
@@ -69,17 +67,15 @@ void menuPrincipal()
 				limpioPantalla();
 				limpioPantalla();
 				limpioPantalla();
-
-
 				if(addPassenger(list, TAM, pasajeroIngresado.name,pasajeroIngresado.lastName,pasajeroIngresado.price,pasajeroIngresado.flycode,pasajeroIngresado.typePassenger,pasajeroIngresado.statusFlight,siguienteId,status,TAM_STATFGHT,typePassenger,TAM_TYPEP)) //si devuelve 1 todo salio bien
 				{
 					siguienteId++;
-
+					banderaHarcode = 0;
 				}
 				else
 				{
-					showMessage("\n	**WARNING**\n");
-					showMessage("\n	**ERROR AL CARGAR EL PASAJERO DENTRO DEL SISTEMA**\n");
+					showMessage("\nWARNING!!!\n");
+					showMessage("\nERROR AL CARGAR EL PASAJERO DENTRO DEL SISTEMA\n");
 				}
 
 				system("pause");
@@ -87,13 +83,12 @@ void menuPrincipal()
 			case 2:
 				limpioPantalla();
 				limpioPantalla();
-					if(banderaHarcode ==1)
+					if(banderaHarcode == 1)
 					{
-						showMessage("\n	**¡AUN NO SE DIO EL ALTA, NO SE PUEDE MODIFICAR!**\n");
+						showMessage("\n¡AUN NO SE DIO EL ALTA, NO SE PUEDE MODIFICAR!\n");
 					}
 					else
 					{
-
 						modifyPassenger(list, TAM,status,TAM_STATFGHT,typePassenger,TAM_TYPEP);
 					}
 				system("pause");
@@ -103,13 +98,13 @@ void menuPrincipal()
 				limpioPantalla();
 				if(banderaHarcode==1)
 				{
-					showMessage("\n**¡AUN NO SE DIO EL ALTA, NO SE PUEDE DAR DE BAJA!**\n");
+					showMessage("\n¡AUN NO SE DIO EL ALTA, NO SE PUEDE DAR DE BAJA!\n");
 				}
 				else
 				{
 					if(removePassenger(list, TAM,pasajeroIngresado.id,status,TAM_STATFGHT,typePassenger,TAM_TYPEP) == 0)
 					{
-						showMessage("\n**¡OCURRIO UN ERROR INESPERADO AL DAR DE BAJA!**\n");
+						showMessage("\n¡OCURRIO UN ERROR INESPERADO AL DAR DE BAJA!\n");
 					}
 				}
 				system("pause");
@@ -119,7 +114,7 @@ void menuPrincipal()
 				limpioPantalla();
 				if(banderaHarcode==1)
 				{
-					showMessage("\n**¡AUN NO HAY NADIE EN EL SISTEMA, NO SE PUEDE INFORMAR!**\n");
+					showMessage("\n¡AUN NO HAY NADIE EN EL SISTEMA, NO SE PUEDE INFORMAR!\n");
 				}
 				else
 				{
@@ -144,7 +139,15 @@ void menuPrincipal()
 			default:
 				limpioPantalla();
 				limpioPantalla();
-				showMessage("\n	 ***MUCHAS GRACIAS POR FINALIZAR LA OPERACION***.\n");
+				getUserConfirmation(&confirma, "\nDESEA TERMINAR LA APP (S/N)?: ", "\nVALOR INVALIDO, REINTENTE (S/N): ");
+				if(confirma=='s')
+				{
+					showMessage("\nMUCHAS GRACIAS POR FINALIZAR LA APLICACION!\n");
+				}
+				else
+				{
+					showMessage("\nDECIDIO SEGUIR USANDO LA APP\n");
+				}
 				system("pause");
 			break;
 		}
